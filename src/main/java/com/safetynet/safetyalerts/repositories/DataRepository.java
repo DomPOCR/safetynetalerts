@@ -11,20 +11,21 @@ import com.safetynet.safetyalerts.model.Database;
 @Repository
 public class DataRepository {
 
-	// Permet de mapper du JSON en objet Java
+	// // Permet de mapper du JSON en objet Java
 	private static final ObjectMapper objectMapper = new ObjectMapper();
 
-	// Fichier JSON em mémoire
-	private static Database database;
-
-	// Charger le fichier data.json en mémoire dans l'objet database
+	// // Fichier JSON em mémoire
+	private static Database db;
+	//
+	// // Charger le fichier data.json en mémoire dans l'objet database
 	public DataRepository() throws IOException {
 
-		InputStream inputstream = this.getClass().getClassLoader()
+		InputStream ips = this.getClass().getClassLoader()
 				.getSystemResourceAsStream("data.json");
-		database = objectMapper.readerFor(Database.class)
-				.readValue(inputstream);
 
+		db = objectMapper.readerFor(Database.class).readValue(ips);
+
+		System.out.println(db.getPersons());
 	}
 
 }

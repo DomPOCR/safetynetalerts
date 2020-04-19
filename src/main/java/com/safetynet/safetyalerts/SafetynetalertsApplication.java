@@ -12,7 +12,8 @@ public class SafetynetalertsApplication {
 		SpringApplication.run(SafetynetalertsApplication.class, args);
 	}
 
-	@Bean // Solution pour ajouter le endpoint de Trace
+	// Solution pour ajouter le endpoint de Trace
+	@Bean
 	InMemoryHttpTraceRepository httptrace() {
 
 		return new InMemoryHttpTraceRepository();

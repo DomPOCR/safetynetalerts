@@ -8,7 +8,7 @@ public class Person {
 	private String city;
 	private String zip;
 	private String phone;
-	private String mail;
+	private String email;
 
 	public String getFirstName() {
 		return firstName;
@@ -46,11 +46,11 @@ public class Person {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getMail() {
-		return mail;
+	public String getEmail() {
+		return email;
 	}
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
