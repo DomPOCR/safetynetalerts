@@ -1,27 +1,30 @@
 package com.safetynet.safetyalerts.service;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.safetyalerts.dao.PersonDaoImpl;
 import com.safetynet.safetyalerts.model.Person;
-import com.safetynet.safetyalerts.repositories.DataRepository;
 
 @Service
 public class PersonService {
 
 	@Autowired
-	private DataRepository dataRepository;
+	PersonDaoImpl persondao;
 
-	public Collection<String> getCommunityEmail(String city) {
+	public List<String> getCommunityEmail(String city) {
 
-		Collection<String> collectionEmails = new HashSet<String>();
+		List<Person> listPerson = persondao.listPersonByCity(city);
 
-		for (Person person : dataRepository.getPersonsByCity(city)) {
+		List<String> collectionEmails = new ArrayList<String>();
 
-			collectionEmails.add("email : " + person.getEmail());
+		for (Person person : listPerson) {
+
+			collectionEmails.add("email de tous les habitants de la ville de "
+					+ city + " : " + person.getEmail());
 
 		}
 		return collectionEmails;

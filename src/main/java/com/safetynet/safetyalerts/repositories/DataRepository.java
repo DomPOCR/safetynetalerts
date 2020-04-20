@@ -3,8 +3,6 @@ package com.safetynet.safetyalerts.repositories;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.safetyalerts.model.Database;
-import com.safetynet.safetyalerts.model.Person;
 
 @Repository
 public class DataRepository {
@@ -29,6 +26,10 @@ public class DataRepository {
 	private static Database db;
 	private String jsonFile = "data.json";
 
+	public Database getDatabase() {
+
+		return this.db;
+	}
 	// Charger le fichier data.json en mémoire dans l'objet database
 	public DataRepository() throws JsonMappingException, IOException {
 
@@ -50,18 +51,4 @@ public class DataRepository {
 		}
 	}
 
-	// Recuperer les personnes d'une ville (on ignore la casse de la ville)
-	public Collection<Person> getPersonsByCity(String city) {
-
-		logger.info("Start");
-
-		Collection<Person> collectionPerson = new ArrayList<Person>();
-
-		for (Person person : db.getPersons()) {
-			if (person.getCity().equalsIgnoreCase(city)) {
-				collectionPerson.add(person);
-			}
-		}
-		return collectionPerson;
-	}
 }

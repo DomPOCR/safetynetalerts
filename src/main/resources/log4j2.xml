@@ -3,13 +3,13 @@
 
     <Appenders>
         <Console name="LogToConsole" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L : %msg%n%throwable - %msg%n" />
         </Console>
 
         <RollingFile 
         	name="LogToFile"
-            fileName="./log/safetynetApplication.log"
-            filePattern="./log/safetynetApplication%d{yyyy-MM-dd}-%i.log"
+            fileName="log/safetynetApplication.log"
+            filePattern="log/safetynetApplication%d{yyyy-MM-dd}-%i.log"
             ignoreExceptions="false">
             <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
             <Policies>
