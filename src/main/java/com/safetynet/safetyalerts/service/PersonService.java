@@ -21,7 +21,7 @@ public class PersonService {
 
 		for (Person person : dataRepository.getPersonsByCity(city)) {
 
-			collectionEmails.add(person.getEmail());
+			collectionEmails.add("email : " + person.getEmail());
 
 		}
 		return collectionEmails;
