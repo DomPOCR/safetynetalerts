@@ -11,7 +11,7 @@ import com.safetynet.safetyalerts.model.Person;
 import com.safetynet.safetyalerts.repositories.DataRepository;
 
 @Service
-public class PersonDaoImpl implements PersonDaoInterface {
+public class PersonDaoImpl implements PersonDao {
 
 	@Autowired
 	private DataRepository dataRepository;
@@ -20,12 +20,6 @@ public class PersonDaoImpl implements PersonDaoInterface {
 	public List<Person> listPerson() {
 
 		return dataRepository.getDatabase().getPersons();
-	}
-
-	@Override
-	public Person getPerson(String email) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

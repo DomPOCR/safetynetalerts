@@ -4,11 +4,9 @@ import java.util.List;
 
 import com.safetynet.safetyalerts.model.Person;
 
-public interface PersonDaoInterface {
+public interface PersonDao {
 
 	List<Person> listPerson();
 	List<Person> listPersonByCity(String city);
-
-	Person getPerson(String email);
 
 }

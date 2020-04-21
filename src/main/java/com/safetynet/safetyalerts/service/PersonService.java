@@ -18,16 +18,24 @@ public class PersonService {
 	public List<String> getCommunityEmail(String city) {
 
 		List<Person> listPerson = persondao.listPersonByCity(city);
-
-		List<String> collectionEmails = new ArrayList<String>();
+		List<String> listEmails = new ArrayList<String>();
 
 		for (Person person : listPerson) {
-
-			collectionEmails.add("email de tous les habitants de la ville de "
-					+ city + " : " + person.getEmail());
-
+			listEmails.add("email des habitants de la ville de " + city + " : "
+					+ person.getEmail());
 		}
-		return collectionEmails;
+		return listEmails;
 	}
 
+	public List<String> getPerson() {
+
+		List<Person> listPerson = persondao.listPerson();
+		List<String> listPersons = new ArrayList<String>();
+
+		for (Person person : listPerson) {
+			listPersons.add("Liste des personnes du fichier  " + " : "
+					+ person.getFirstName() + " " + person.getLastName());
+		}
+		return listPersons;
+	}
 }

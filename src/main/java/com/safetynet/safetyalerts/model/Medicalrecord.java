@@ -11,6 +11,18 @@ public class Medicalrecord {
 	private String firstName;
 	private String lastName;
 	private String birthdate;
+
+	@Override
+	public String toString() {
+		return "Medicalrecord [firstName=" + firstName + ", lastName="
+				+ lastName + ", birthdate=" + birthdate + ", medications="
+				+ medications + ", allergies=" + allergies + ", getFirstName()="
+				+ getFirstName() + ", getLastName()=" + getLastName()
+				+ ", getBirthdate()=" + getBirthdate() + ", getMedications()="
+				+ getMedications() + ", getAllergies()=" + getAllergies()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
 	private List<String> medications = new ArrayList<String>();
 	private List<String> allergies = new ArrayList<String>();
 
