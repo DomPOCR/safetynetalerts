@@ -6,7 +6,7 @@ public class MainTest {
 
 	public static void main(String[] args) {
 
-		CalculateAge.personAge("03/06/1984");
+		CalculateAge.personBirthDate("03/06/1984");
 
 	}
 

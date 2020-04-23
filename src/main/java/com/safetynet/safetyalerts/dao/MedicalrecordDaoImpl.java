@@ -11,7 +11,7 @@ import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.repositories.DataRepository;
 
 @Service
-public class medicalrecordDaoImpl implements medicalrecordDao {
+public class MedicalrecordDaoImpl implements MedicalrecordDao {
 
 	@Autowired
 	private DataRepository dataRepository;
@@ -37,5 +37,21 @@ public class medicalrecordDaoImpl implements medicalrecordDao {
 			}
 		}
 		return ListMedicalrecord;
+	}
+
+	@Override
+	public Medicalrecord getMedicalrecordInfo(String lastname,
+			String firstname) {
+
+		Database db = dataRepository.getDatabase();
+
+		for (Medicalrecord medicalrecord : db.getMedicalrecords()) {
+			if ((medicalrecord.getLastName().equalsIgnoreCase(lastname))
+					&& (medicalrecord.getFirstName()
+							.equalsIgnoreCase(firstname))) {
+				return medicalrecord;
+			}
+		}
+		return null;
 	}
 }

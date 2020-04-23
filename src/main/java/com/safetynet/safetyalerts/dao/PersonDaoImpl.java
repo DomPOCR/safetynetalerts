@@ -31,8 +31,10 @@ public class PersonDaoImpl implements PersonDao {
 
 		Database db = dataRepository.getDatabase();
 		for (Person person : db.getPersons()) {
-			if ((person.getLastName().equalsIgnoreCase(lastname))
-					&& (person.getFirstName().equalsIgnoreCase(firstname))) {
+			if (lastname == null
+					|| (person.getLastName().equalsIgnoreCase(lastname))
+							&& (firstname == null || person.getFirstName()
+									.equalsIgnoreCase(firstname))) {
 				ListPerson.add(person);
 			}
 		}

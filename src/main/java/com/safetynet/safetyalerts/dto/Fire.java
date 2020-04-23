@@ -1,17 +1,23 @@
-package com.safetynet.safetyalerts.model;
+package com.safetynet.safetyalerts.dto;
 
 import java.util.List;
 
-public class personInfo {
+public class Fire {
 
+	private String station;
 	private String firstName;
 	private String lastName;
-	private String address;
+	private String adress;
+	private String phone;
 	private int age;
-	private String email;
 	private List<String> medications;
 	private List<String> allergies;
-
+	public String getStation() {
+		return station;
+	}
+	public void setStation(String station) {
+		this.station = station;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -24,23 +30,23 @@ public class personInfo {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getAddress() {
-		return address;
+	public String getAdress() {
+		return adress;
 	}
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public int getAge() {
 		return age;
 	}
 	public void setAge(int age) {
 		this.age = age;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
 	}
 	public List<String> getMedications() {
 		return medications;

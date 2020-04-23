@@ -2,7 +2,6 @@ package com.safetynet.safetyalerts.utility;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +20,8 @@ public class UtilityTU {
 	@Test
 	void CalculateAge() throws Exception {
 
-		Mockito.when(CalculateAge.personAge("03/06/1984")).thenReturn(36);
+		/// Mockito.when(CalculateAge.personBirthDate("03/06/1984")).thenReturn(36);
+
 	}
 
 }

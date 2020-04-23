@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.safetyalerts.dao.medicalrecordDaoImpl;
+import com.safetynet.safetyalerts.dao.MedicalrecordDaoImpl;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 
 @Service
 public class MedicalrecordService {
 
 	@Autowired
-	medicalrecordDaoImpl medicalrecorddao;
+	MedicalrecordDaoImpl medicalrecorddao;
 
 	public List<String> getMedicalrecord() {
 

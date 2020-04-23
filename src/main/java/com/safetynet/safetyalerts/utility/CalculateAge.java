@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 public abstract class CalculateAge {
 
-	public static int personAge(String birthdate) {
+	public static int personBirthDate(String birthdate) {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
