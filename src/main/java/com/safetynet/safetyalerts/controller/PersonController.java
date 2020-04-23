@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetyalerts.exceptions.EndPointIntrouvableException;
+import com.safetynet.safetyalerts.model.personInfo;
 import com.safetynet.safetyalerts.service.PersonService;
 
 // Controller expose les API REST pour gérer les requetes qui viennent d'un client web
@@ -29,20 +30,37 @@ public class PersonController {
 	public String endPoint;
 
 	@GetMapping(path = "communityEmail")
+	// @ResponseStatus(HttpStatus.OK)
 	public List<String> getCommunityEmail(@RequestParam String city) {
 
-		logger.info("GET:/communityEmail");
+		endPoint = "communityEmail";
 
-		return personService.getCommunityEmail(city);
+		logger.debug("Start");
+
+		List<String> communityEmail = personService.getCommunityEmail(city);
+
+		if (communityEmail.isEmpty()) {
+
+			logger.info("Le EndPoint " + endPoint + " est vide");
+
+			throw new EndPointIntrouvableException(
+					"Le EndPoint " + endPoint + " est vide");
+		}
+
+		logger.info("GET:/communityEmail");
+		logger.debug("End");
+		return communityEmail;
 	}
 
 	@GetMapping(path = "person")
 	public List<String> getPerson() {
 
 		endPoint = "person";
-		logger.info("GET:/person");
+
+		logger.debug("Start");
 
 		List<String> person = personService.getPerson();
+
 		if (person.isEmpty()) {
 
 			logger.info("Le EndPoint " + endPoint + " est vide");
@@ -50,7 +68,36 @@ public class PersonController {
 			throw new EndPointIntrouvableException(
 					"Le EndPoint " + endPoint + " est vide");
 		}
-		return personService.getPerson();
+
+		logger.info("GET:/person" + person);
+		logger.debug("End");
+
+		return person;
+
+	}
+	@GetMapping(path = "personInfo")
+	public List<personInfo> getPersonInfo(@RequestParam String lastname,
+			@RequestParam String firstname) {
+
+		endPoint = "personInfo";
+
+		logger.debug("Start");
+
+		List<personInfo> person = personService.getPersonInfo(lastname,
+				firstname);
+
+		if (person.isEmpty()) {
+
+			logger.info("Le EndPoint " + endPoint + " est vide");
+
+			throw new EndPointIntrouvableException(
+					"Le EndPoint " + endPoint + " est vide");
+		}
+
+		logger.info("GET:/personInfo" + lastname + firstname);
+		logger.debug("End");
+
+		return person;
 
 	}
 

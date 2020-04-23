@@ -30,4 +30,21 @@ public class MedicalrecordService {
 		}
 		return listMedicalrecords;
 	}
+
+	public List<String> getMedicalrecordInfo(String lastname,
+			String firstname) {
+
+		List<Medicalrecord> listMedicalrecord = medicalrecorddao
+				.listMedicalrecord();
+		List<String> listMedicalrecordInfo = new ArrayList<String>();
+
+		for (Medicalrecord Medicalrecord : listMedicalrecord) {
+			listMedicalrecordInfo
+					.add("Liste des informations médicales du fichier  " + " : "
+							+ Medicalrecord.getFirstName() + " "
+							+ Medicalrecord.getLastName() + " "
+							+ Medicalrecord.getAllergies());
+		}
+		return listMedicalrecordInfo;
+	}
 }

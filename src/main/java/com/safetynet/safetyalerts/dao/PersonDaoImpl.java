@@ -16,12 +16,30 @@ public class PersonDaoImpl implements PersonDao {
 	@Autowired
 	private DataRepository dataRepository;
 
+	// Liste l'ensemble des personnes du fichier
 	@Override
 	public List<Person> listPerson() {
 
 		return dataRepository.getDatabase().getPersons();
 	}
 
+	// Liste les personnes par leur nom et prénom
+	@Override
+	public List<Person> listPersonInfo(String lastname, String firstname) {
+
+		List<Person> ListPerson = new ArrayList<Person>();
+
+		Database db = dataRepository.getDatabase();
+		for (Person person : db.getPersons()) {
+			if ((person.getLastName().equalsIgnoreCase(lastname))
+					&& (person.getFirstName().equalsIgnoreCase(firstname))) {
+				ListPerson.add(person);
+			}
+		}
+		return ListPerson;
+	}
+
+	// Liste l'ensemble des personnes d'une ville
 	@Override
 	public List<Person> listPersonByCity(String city) {
 

@@ -31,7 +31,8 @@ public class MedicalrecordController {
 	public List<String> getmedicalRecord() {
 
 		endPoint = "medicalRecord";
-		logger.info("GET:/medicalRecord");
+
+		logger.debug("Start");
 
 		List<String> medicalrecord = medicalrecordservice.getMedicalrecord();
 		if (medicalrecord.isEmpty()) {
@@ -41,7 +42,11 @@ public class MedicalrecordController {
 			throw new EndPointIntrouvableException(
 					"Le EndPoint " + endPoint + " est vide");
 		}
-		return medicalrecordservice.getMedicalrecord();
+
+		logger.info("GET:/medicalRecord" + medicalrecord);
+		logger.debug("End");
+
+		return medicalrecord;
 
 	}
 }

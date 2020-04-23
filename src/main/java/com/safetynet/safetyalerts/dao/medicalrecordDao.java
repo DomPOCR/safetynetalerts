@@ -7,4 +7,7 @@ import com.safetynet.safetyalerts.model.Medicalrecord;
 public interface medicalrecordDao {
 
 	List<Medicalrecord> listMedicalrecord();
+
+	List<Medicalrecord> listMedicalrecordInfo(String lastname,
+			String firstname);
 }

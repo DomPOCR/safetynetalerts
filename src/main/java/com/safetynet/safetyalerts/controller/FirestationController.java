@@ -31,7 +31,8 @@ public class FirestationController {
 	public List<String> getFirestation() {
 
 		endPoint = "firestation";
-		logger.info("GET:/firestation");
+
+		logger.debug("Start");
 
 		List<String> firestation = fireStationService.getFirestation();
 		if (firestation.isEmpty()) {
@@ -42,7 +43,10 @@ public class FirestationController {
 					"Le EndPoint " + endPoint + " est vide");
 		}
 
-		return fireStationService.getFirestation();
+		logger.info("GET:/firestation" + firestation);
+		logger.debug("End");
+
+		return firestation;
 
 	}
 }
