@@ -24,6 +24,11 @@ public class PersonService {
 	@Autowired
 	MedicalrecordDao medicalrecorddao;
 
+	// http://localhost:8080/communityEmail?city=<city>
+
+	// Cette url doit retourner les Addresses mail de tous les habitants de la
+	// ville.
+
 	public Collection<String> getCommunityEmail(String city) {
 
 		List<Person> listPerson = persondao.listPersonByCity(city);
@@ -36,17 +41,14 @@ public class PersonService {
 		return listEmails;
 	}
 
-	public List<String> getPerson() {
+	// http://localhost:8080/personInfo?firstName=<firstName>&lastName=<lastName>
 
-		List<Person> listPerson = persondao.listPerson();
-		List<String> listPersons = new ArrayList<String>();
-
-		for (Person person : listPerson) {
-			listPersons.add("Liste des personnes du fichier : "
-					+ person.getFirstName() + " " + person.getLastName());
-		}
-		return listPersons;
-	}
+	// Cette url doit retourner le nom, l'Addresse, l'âge, l'Addresse mail et
+	// les
+	// antécédents médicaux (médicaments,
+	// posologie, allergies) de chaque habitant. Si plusieurs personnes portent
+	// le même nom, elles doivent
+	// toutes apparaître.
 
 	public List<PersonInfo> getPersonInfo(String lastname, String firstname) {
 
@@ -57,14 +59,15 @@ public class PersonService {
 		for (Person person : listPerson) {
 
 			PersonInfo personInfo = new PersonInfo();
-			Medicalrecord personMedicalRecord = medicalrecorddao
-					.getMedicalrecordInfo(person.getLastName(),
-							person.getFirstName());
 
 			personInfo.setLastName(person.getLastName());
 			personInfo.setFirstName(person.getFirstName());
 			personInfo.setAddress(person.getAddress());
 			personInfo.setEmail(person.getEmail());
+
+			Medicalrecord personMedicalRecord = medicalrecorddao
+					.getMedicalrecordInfo(person.getLastName(),
+							person.getFirstName());
 
 			if (personMedicalRecord != null) {
 				personInfo.setAge(CalculateAge
@@ -75,5 +78,19 @@ public class PersonService {
 			listPersonInfo.add(personInfo);
 		}
 		return listPersonInfo;
+	}
+
+	// http://localhost:8080/person
+
+	public List<String> getPerson() {
+
+		List<Person> listPerson = persondao.listPerson();
+		List<String> listPersons = new ArrayList<String>();
+
+		for (Person person : listPerson) {
+			listPersons.add("Liste des personnes du fichier : "
+					+ person.getFirstName() + " " + person.getLastName());
+		}
+		return listPersons;
 	}
 }

@@ -56,4 +56,18 @@ public class PersonDaoImpl implements PersonDao {
 		return ListPerson;
 	}
 
+	// Liste l'ensemble des personnes à une Addresse
+	@Override
+	public List<Person> listPersonByAddress(String Address) {
+
+		List<Person> ListPerson = new ArrayList<Person>();
+
+		Database db = dataRepository.getDatabase();
+		for (Person person : db.getPersons()) {
+			if (person.getAddress().equalsIgnoreCase(Address)) {
+				ListPerson.add(person);
+			}
+		}
+		return ListPerson;
+	}
 }

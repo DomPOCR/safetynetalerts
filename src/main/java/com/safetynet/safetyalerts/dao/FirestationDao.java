@@ -7,5 +7,6 @@ import com.safetynet.safetyalerts.model.Firestation;
 public interface FirestationDao {
 
 	List<Firestation> listFirestation();
+	Firestation FireStationAtAddress(String Address);
 
 }

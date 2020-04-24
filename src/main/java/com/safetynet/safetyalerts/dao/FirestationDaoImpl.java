@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.safetynet.safetyalerts.model.Database;
 import com.safetynet.safetyalerts.model.Firestation;
 import com.safetynet.safetyalerts.repositories.DataRepository;
 
@@ -20,4 +21,16 @@ public class FirestationDaoImpl implements FirestationDao {
 		return dataRepository.getDatabase().getFirestations();
 	}
 
+	@Override
+	public Firestation FireStationAtAddress(String Address) {
+
+		Database db = dataRepository.getDatabase();
+
+		for (Firestation firestation : db.getFirestations()) {
+			if (firestation.getAddress().equalsIgnoreCase(Address)) {
+				return firestation;
+			}
+		}
+		return null;
+	}
 }

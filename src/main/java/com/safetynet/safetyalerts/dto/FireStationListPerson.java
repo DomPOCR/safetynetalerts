@@ -2,16 +2,17 @@ package com.safetynet.safetyalerts.dto;
 
 import java.util.List;
 
-public class Fire {
+public class FireStationListPerson {
 
 	private String station;
 	private String firstName;
 	private String lastName;
-	private String adress;
+	private String address;
 	private String phone;
 	private int age;
 	private List<String> medications;
 	private List<String> allergies;
+
 	public String getStation() {
 		return station;
 	}
@@ -30,11 +31,11 @@ public class Fire {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getPhone() {
 		return phone;

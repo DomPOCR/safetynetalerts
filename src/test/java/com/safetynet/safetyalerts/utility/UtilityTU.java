@@ -1,5 +1,7 @@
 package com.safetynet.safetyalerts.utility;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,13 @@ public class UtilityTU {
 	@Test
 	void CalculateAge() throws Exception {
 
-		/// Mockito.when(CalculateAge.personBirthDate("03/06/1984")).thenReturn(36);
+		int age;
 
+		age = CalculateAge.personBirthDate("03/06/1984");
+		assertEquals(36, age);
+
+		age = CalculateAge.personBirthDate("01/01/1995");
+		assertEquals(25, age);
 	}
 
 }
