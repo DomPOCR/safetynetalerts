@@ -42,7 +42,7 @@ class FirestationControllerTU {
 		Mockito.verify(firestationService, Mockito.times(1))
 				.getFireStationListPerson("892 Downing Ct");
 
-		// Test 1 : on envoie une requête GET avec en paramètre une adresse
+		// Test 3 : on envoie une requête GET avec en paramètre une adresse
 		// non valide
 		// + on vérifie que le retour est vide
 
