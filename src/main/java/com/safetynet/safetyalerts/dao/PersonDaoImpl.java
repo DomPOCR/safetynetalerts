@@ -15,6 +15,8 @@ public class PersonDaoImpl implements PersonDao {
 
 	@Autowired
 	private DataRepository dataRepository;
+	@Autowired
+	private MedicalrecordDao medicalrecorddao;
 
 	// Liste l'ensemble des personnes du fichier
 	@Override
@@ -56,7 +58,7 @@ public class PersonDaoImpl implements PersonDao {
 		return ListPerson;
 	}
 
-	// Liste l'ensemble des personnes à une Addresse
+	// Liste l'ensemble des personnes à une Adresse
 	@Override
 	public List<Person> listPersonByAddress(String Address) {
 

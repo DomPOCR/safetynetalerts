@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.safetyalerts.dao.MedicalrecordDao;
 import com.safetynet.safetyalerts.dao.PersonDao;
+import com.safetynet.safetyalerts.dto.ChildInfo;
 import com.safetynet.safetyalerts.dto.PersonInfo;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
@@ -23,6 +24,20 @@ public class PersonService {
 	PersonDao persondao;
 	@Autowired
 	MedicalrecordDao medicalrecorddao;
+
+	// http://localhost:8080/person
+
+	public List<String> getPerson() {
+
+		List<Person> listPerson = persondao.listPerson();
+		List<String> listPersons = new ArrayList<String>();
+
+		for (Person person : listPerson) {
+			listPersons.add("Liste des personnes du fichier : "
+					+ person.getFirstName() + " " + person.getLastName());
+		}
+		return listPersons;
+	}
 
 	// http://localhost:8080/communityEmail?city=<city>
 
@@ -80,17 +95,40 @@ public class PersonService {
 		return listPersonInfo;
 	}
 
-	// http://localhost:8080/person
+	// http://localhost:8080/childAlert?address=
+	// Cette url doit retourner une liste d'enfants (tout individu âgé de 18 ans
+	// ou moins) habitant à cette adresse. La liste doit comprendre le prénom et
+	// le nom de famille de chaque enfant, son âge et une liste des autres
+	// membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une
+	// chaîne vide.
 
-	public List<String> getPerson() {
+	public List<ChildInfo> getChildByAddress(String address) {
 
-		List<Person> listPerson = persondao.listPerson();
-		List<String> listPersons = new ArrayList<String>();
+		List<Person> personByAddress = persondao.listPersonByAddress(address);
 
-		for (Person person : listPerson) {
-			listPersons.add("Liste des personnes du fichier : "
-					+ person.getFirstName() + " " + person.getLastName());
+		List<ChildInfo> ListChildInfo = new ArrayList<>();
+
+		for (Person person : personByAddress) {
+
+			ChildInfo childInfo = new ChildInfo();
+
+			Medicalrecord personMedicalRecord = medicalrecorddao
+					.getMedicalrecordInfo(person.getLastName(),
+							person.getFirstName());
+
+			int age = CalculateAge
+					.personBirthDate(personMedicalRecord.getBirthdate());
+			if ((personMedicalRecord != null) && (age <= 18)) {
+
+				childInfo.setLastName(person.getLastName());
+				childInfo.setFirstName(person.getFirstName());
+				childInfo.setAge(age);
+				childInfo.setAddress(person.getAddress());
+
+				childInfo.setFamillyMember(personByAddress);
+				ListChildInfo.add(childInfo);
+			}
 		}
-		return listPersons;
+		return ListChildInfo;
 	}
 }

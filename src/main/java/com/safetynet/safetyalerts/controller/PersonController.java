@@ -4,10 +4,13 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.safetyalerts.dto.ChildInfo;
 import com.safetynet.safetyalerts.dto.PersonInfo;
 import com.safetynet.safetyalerts.service.PersonService;
 
@@ -23,7 +26,7 @@ public class PersonController {
 	private PersonService personService;
 
 	@GetMapping(path = "communityEmail")
-	// @ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.OK)
 	public Collection<String> getCommunityEmail(@RequestParam String city) {
 
 		Collection<String> communityEmail = personService
@@ -33,6 +36,7 @@ public class PersonController {
 	}
 
 	@GetMapping(path = "person")
+	@ResponseStatus(HttpStatus.OK)
 	public List<String> getPerson() {
 
 		List<String> person = personService.getPerson();
@@ -41,6 +45,7 @@ public class PersonController {
 	}
 
 	@GetMapping(path = "personInfo")
+	@ResponseStatus(HttpStatus.OK)
 	public List<PersonInfo> getPersonInfo(@RequestParam String lastname,
 			@RequestParam(required = false) String firstname) {
 
@@ -50,4 +55,13 @@ public class PersonController {
 		return person;
 	}
 
+	@GetMapping(path = "childAlert")
+	@ResponseStatus(HttpStatus.OK)
+	public List<ChildInfo> getChildByAddress(@RequestParam String address) {
+
+		List<ChildInfo> child = personService.getChildByAddress(address);
+
+		return child;
+
+	}
 }
