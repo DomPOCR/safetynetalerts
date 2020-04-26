@@ -52,4 +52,31 @@ class FirestationControllerTU {
 
 	}
 
+	@Test
+	void getFireStationListPhone() throws Exception {
+
+		// Test 1 : on envoie une requête GET avec en paramètre un n° de station
+		// valide
+		// + on vérifie que le statut de la réponse est 200
+
+		mockmvc.perform(MockMvcRequestBuilders.get("/phoneAlert")
+				.param("firestation", "1"))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+
+		// Test 2 : on vérifie que le service a bien été appelé avec les bons
+		// paramètres
+
+		Mockito.verify(firestationService, Mockito.times(1))
+				.getFireStationListPhone("1");
+
+		// Test 3 : on envoie une requête GET avec en paramètre une station
+		// qui n'existe pas
+		// + on vérifie que le retour est vide
+
+		mockmvc.perform(MockMvcRequestBuilders.get("/phoneAlert")
+				.param("firestation", "9"))
+				.andExpect(MockMvcResultMatchers.content().string("[]"));
+
+	}
+
 }
