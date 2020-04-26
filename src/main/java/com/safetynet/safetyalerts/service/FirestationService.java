@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.safetynet.safetyalerts.dao.FirestationDao;
 import com.safetynet.safetyalerts.dao.MedicalrecordDao;
 import com.safetynet.safetyalerts.dao.PersonDao;
+import com.safetynet.safetyalerts.dto.FireStationCoveragePerson;
 import com.safetynet.safetyalerts.dto.FireStationListPerson;
 import com.safetynet.safetyalerts.dto.FireStationListPhone;
 import com.safetynet.safetyalerts.model.Firestation;
@@ -128,4 +129,71 @@ public class FirestationService {
 		return fireStationListPhone;
 	}
 
+	// http://localhost:8080/firestation?stationNumber=<station_number>
+	// Cette url doit retourner une liste des personnes couvertes par la caserne
+	// de pompiers correspondante.
+	// Donc, si le numéro de station = 1, elle doit renvoyer les habitants
+	// couverts par la station numéro 1. La liste
+	// doit inclure les informations spécifiques suivantes : prénom, nom,
+	// adresse, numéro de téléphone. De plus,
+	// elle doit fournir un décompte du nombre d'adultes et du nombre d'enfants
+	// (tout individu âgé de 18 ans ou
+	// moins) dans la zone desservie.
+
+	public List<FireStationCoveragePerson> getFireStationCoveragePerson(
+			String station) {
+
+		List<Firestation> listFireStationAddress = firestationdao
+				.FireStationAdressbyStation(station);
+
+		List<FireStationCoveragePerson> fireStationCoveragePerson = new ArrayList<>();
+
+		int adultCount = 0;
+		int childCount = 0;
+
+		for (Firestation firestation : listFireStationAddress) {
+
+			FireStationCoveragePerson fireStationInfo = new FireStationCoveragePerson();
+			Person personInfo = new Person();
+
+			List<Person> personByAddress = persondao
+					.listPersonByAddress(firestation.getAddress());
+
+			if (personByAddress != null) {
+
+				for (Person person : personByAddress) {
+
+					Medicalrecord personMedicalRecord = medicalrecorddao
+							.getMedicalrecordInfo(person.getLastName(),
+									person.getFirstName());
+
+					int age = CalculateAge.personBirthDate(
+							personMedicalRecord.getBirthdate());
+
+					if (personMedicalRecord != null) {
+
+						if (age <= 18)
+							childCount++;
+						else
+							adultCount++;
+					}
+					personInfo.setLastName(person.getLastName());
+					personInfo.setFirstName(person.getLastName());
+					personInfo.setAddress(person.getAddress());
+					personInfo.setPhone(person.getPhone());
+				}
+				fireStationInfo.setStation(station);
+				fireStationInfo.setLastName(personInfo.getLastName());
+				fireStationInfo.setFirstName(personInfo.getFirstName());
+				fireStationInfo.setAddress(personInfo.getAddress());
+				fireStationInfo.setPhone(personInfo.getPhone());
+				fireStationInfo.setAdultCount(adultCount);
+				fireStationInfo.setChildCount(childCount);
+			}
+			fireStationCoveragePerson.add(fireStationInfo);
+			adultCount = 0;
+			childCount = 0;
+		}
+		return fireStationCoveragePerson;
+	}
 }

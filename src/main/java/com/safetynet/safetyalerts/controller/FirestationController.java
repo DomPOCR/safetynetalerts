@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.safetyalerts.dto.FireStationCoveragePerson;
 import com.safetynet.safetyalerts.dto.FireStationListPerson;
 import com.safetynet.safetyalerts.dto.FireStationListPhone;
 import com.safetynet.safetyalerts.service.FirestationService;
@@ -26,13 +27,13 @@ public class FirestationController {
 	@Autowired
 	private FirestationService fireStationService;
 
-	@GetMapping(path = "firestation")
+	@GetMapping(path = "firestationlist")
 	@ResponseStatus(HttpStatus.OK)
 	public List<String> getFirestation() {
 
-		List<String> firestation = fireStationService.getFirestation();
+		List<String> firestationInfo = fireStationService.getFirestation();
 
-		return firestation;
+		return firestationInfo;
 
 	}
 
@@ -41,10 +42,10 @@ public class FirestationController {
 	public List<FireStationListPerson> getFireStationListPerson(
 			@RequestParam String address) {
 
-		List<FireStationListPerson> firestation = fireStationService
+		List<FireStationListPerson> firestationInfo = fireStationService
 				.getFireStationListPerson(address);
 
-		return firestation;
+		return firestationInfo;
 
 	}
 
@@ -53,11 +54,26 @@ public class FirestationController {
 	public List<FireStationListPhone> getFireStationListPhone(
 			@RequestParam String firestation) {
 
-		List<FireStationListPhone> fireStation = fireStationService
+		List<FireStationListPhone> firestationInfo = fireStationService
 				.getFireStationListPhone(firestation);
 
 		List<FireStationListPhone> fireStationWithoutDuplicate = new ArrayList<FireStationListPhone>(
-				new HashSet<FireStationListPhone>(fireStation));
+				new HashSet<FireStationListPhone>(firestationInfo));
+
+		return fireStationWithoutDuplicate;
+
+	}
+
+	@GetMapping(path = "firestation")
+	@ResponseStatus(HttpStatus.OK)
+	public List<FireStationCoveragePerson> getFireStationCoveragePerson(
+			@RequestParam String stationNumber) {
+
+		List<FireStationCoveragePerson> firestationInfo = fireStationService
+				.getFireStationCoveragePerson(stationNumber);
+
+		List<FireStationCoveragePerson> fireStationWithoutDuplicate = new ArrayList<FireStationCoveragePerson>(
+				new HashSet<FireStationCoveragePerson>(firestationInfo));
 
 		return fireStationWithoutDuplicate;
 
