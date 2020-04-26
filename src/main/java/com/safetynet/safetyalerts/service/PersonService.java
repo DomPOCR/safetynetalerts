@@ -106,7 +106,7 @@ public class PersonService {
 
 		List<Person> personByAddress = persondao.listPersonByAddress(address);
 
-		List<ChildInfo> ListChildInfo = new ArrayList<>();
+		List<ChildInfo> listChildInfo = new ArrayList<>();
 
 		for (Person person : personByAddress) {
 
@@ -126,9 +126,9 @@ public class PersonService {
 				childInfo.setAddress(person.getAddress());
 
 				childInfo.setFamillyMember(personByAddress);
-				ListChildInfo.add(childInfo);
+				listChildInfo.add(childInfo);
 			}
 		}
-		return ListChildInfo;
+		return listChildInfo;
 	}
 }

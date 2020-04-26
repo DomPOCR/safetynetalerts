@@ -8,5 +8,6 @@ public interface FirestationDao {
 
 	List<Firestation> listFirestation();
 	Firestation FireStationAtAddress(String Address);
+	List<Firestation> FireStationAdressbyStation(String Station);
 
 }

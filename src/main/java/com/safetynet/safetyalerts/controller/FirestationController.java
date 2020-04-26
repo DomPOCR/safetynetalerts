@@ -1,5 +1,7 @@
 package com.safetynet.safetyalerts.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetyalerts.dto.FireStationListPerson;
+import com.safetynet.safetyalerts.dto.FireStationListPhone;
 import com.safetynet.safetyalerts.service.FirestationService;
 
 //Controller expose les API REST pour gérer les requetes qui viennent d'un client web
@@ -42,6 +45,21 @@ public class FirestationController {
 				.getFireStationListPerson(address);
 
 		return firestation;
+
+	}
+
+	@GetMapping(path = "phoneAlert")
+	@ResponseStatus(HttpStatus.OK)
+	public List<FireStationListPhone> getFireStationListPhone(
+			@RequestParam String firestation) {
+
+		List<FireStationListPhone> fireStation = fireStationService
+				.getFireStationListPhone(firestation);
+
+		List<FireStationListPhone> fireStationWithoutDuplicate = new ArrayList<FireStationListPhone>(
+				new HashSet<FireStationListPhone>(fireStation));
+
+		return fireStationWithoutDuplicate;
 
 	}
 }

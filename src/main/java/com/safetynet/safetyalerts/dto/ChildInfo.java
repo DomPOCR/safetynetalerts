@@ -11,6 +11,7 @@ public class ChildInfo {
 	private String address;
 	private int age;
 	private List<Person> famillyMember;
+
 	public String getFirstName() {
 		return firstName;
 	}

@@ -1,5 +1,6 @@
 package com.safetynet.safetyalerts.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,21 @@ public class FirestationDaoImpl implements FirestationDao {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<Firestation> FireStationAdressbyStation(String Station) {
+
+		List<Firestation> ListFirestation = new ArrayList<Firestation>();
+
+		Database db = dataRepository.getDatabase();
+
+		for (Firestation firestation : db.getFirestations()) {
+			if (firestation.getStation().equals(Station)) {
+				ListFirestation.add(firestation);
+			}
+		}
+		return ListFirestation;
+
 	}
 }

@@ -32,6 +32,7 @@ public class PersonDaoImpl implements PersonDao {
 		List<Person> ListPerson = new ArrayList<Person>();
 
 		Database db = dataRepository.getDatabase();
+
 		for (Person person : db.getPersons()) {
 			if (lastname == null
 					|| (person.getLastName().equalsIgnoreCase(lastname))
@@ -50,6 +51,7 @@ public class PersonDaoImpl implements PersonDao {
 		List<Person> ListPerson = new ArrayList<Person>();
 
 		Database db = dataRepository.getDatabase();
+
 		for (Person person : db.getPersons()) {
 			if (person.getCity().equalsIgnoreCase(city)) {
 				ListPerson.add(person);
@@ -65,6 +67,7 @@ public class PersonDaoImpl implements PersonDao {
 		List<Person> ListPerson = new ArrayList<Person>();
 
 		Database db = dataRepository.getDatabase();
+
 		for (Person person : db.getPersons()) {
 			if (person.getAddress().equalsIgnoreCase(Address)) {
 				ListPerson.add(person);
