@@ -14,6 +14,7 @@ import com.safetynet.safetyalerts.dao.PersonDao;
 import com.safetynet.safetyalerts.dto.FireStationCoveragePerson;
 import com.safetynet.safetyalerts.dto.FireStationListPerson;
 import com.safetynet.safetyalerts.dto.FireStationListPhone;
+import com.safetynet.safetyalerts.dto.PersonList;
 import com.safetynet.safetyalerts.model.Firestation;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
@@ -108,9 +109,9 @@ public class FirestationService {
 
 		Set<String> listPhone = new HashSet<String>();
 
-		for (Firestation firestation : listFireStationAddress) {
+		FireStationListPhone fireStationInfo = new FireStationListPhone();
 
-			FireStationListPhone fireStationInfo = new FireStationListPhone();
+		for (Firestation firestation : listFireStationAddress) {
 
 			List<Person> personByAddress = persondao
 					.listPersonByAddress(firestation.getAddress());
@@ -121,11 +122,11 @@ public class FirestationService {
 
 					listPhone.add(person.getPhone());
 				}
-				fireStationInfo.setStation(station);
-				fireStationInfo.setResidentsPhone(listPhone);
 			}
-			fireStationListPhone.add(fireStationInfo);
+			fireStationInfo.setStation(station);
+			fireStationInfo.setResidentsPhone(listPhone);
 		}
+		fireStationListPhone.add(fireStationInfo);
 		return fireStationListPhone;
 	}
 
@@ -148,13 +149,14 @@ public class FirestationService {
 
 		List<FireStationCoveragePerson> fireStationCoveragePerson = new ArrayList<>();
 
+		FireStationCoveragePerson fireStationInfo = new FireStationCoveragePerson();
+
 		int adultCount = 0;
 		int childCount = 0;
 
 		for (Firestation firestation : listFireStationAddress) {
 
-			FireStationCoveragePerson fireStationInfo = new FireStationCoveragePerson();
-			Person personInfo = new Person();
+			PersonList personInfo = new PersonList();
 
 			List<Person> personByAddress = persondao
 					.listPersonByAddress(firestation.getAddress());
@@ -178,22 +180,21 @@ public class FirestationService {
 							adultCount++;
 					}
 					personInfo.setLastName(person.getLastName());
-					personInfo.setFirstName(person.getLastName());
+					personInfo.setFirstName(person.getFirstName());
 					personInfo.setAddress(person.getAddress());
+					personInfo.setCity(person.getCity());
+					personInfo.setZip(person.getZip());
 					personInfo.setPhone(person.getPhone());
 				}
+
 				fireStationInfo.setStation(station);
-				fireStationInfo.setLastName(personInfo.getLastName());
-				fireStationInfo.setFirstName(personInfo.getFirstName());
-				fireStationInfo.setAddress(personInfo.getAddress());
-				fireStationInfo.setPhone(personInfo.getPhone());
 				fireStationInfo.setAdultCount(adultCount);
 				fireStationInfo.setChildCount(childCount);
+				fireStationInfo.getPersonListForFirestation().add(personInfo);
 			}
-			fireStationCoveragePerson.add(fireStationInfo);
-			adultCount = 0;
-			childCount = 0;
 		}
+		fireStationCoveragePerson.add(fireStationInfo);
 		return fireStationCoveragePerson;
+
 	}
 }

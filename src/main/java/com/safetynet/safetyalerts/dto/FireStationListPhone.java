@@ -1,11 +1,12 @@
 package com.safetynet.safetyalerts.dto;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class FireStationListPhone {
 
 	private String station;
-	private Set<String> residentsPhone;
+	private Set<String> residentsPhone = new HashSet<String>();
 
 	public String getStation() {
 		return station;

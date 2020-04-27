@@ -1,44 +1,20 @@
 package com.safetynet.safetyalerts.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FireStationCoveragePerson {
 
 	private String station;
-	private String firstName;
-	private String lastName;
-	private String address;
-	private String phone;
 	private Integer adultCount;
 	private Integer childCount;
+	private List<PersonList> personListForFirestation = new ArrayList<>();
 
 	public String getStation() {
 		return station;
 	}
 	public void setStation(String station) {
 		this.station = station;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 	public Integer getAdultCount() {
 		return adultCount;
@@ -51,6 +27,13 @@ public class FireStationCoveragePerson {
 	}
 	public void setChildCount(Integer childCount) {
 		this.childCount = childCount;
+	}
+	public List<PersonList> getPersonListForFirestation() {
+		return personListForFirestation;
+	}
+	public void setPersonListForFirestation(
+			List<PersonList> personListForFirestation) {
+		this.personListForFirestation = personListForFirestation;
 	}
 
 }

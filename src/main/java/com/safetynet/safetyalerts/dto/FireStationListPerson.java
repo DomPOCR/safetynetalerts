@@ -1,5 +1,6 @@
 package com.safetynet.safetyalerts.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FireStationListPerson {
@@ -10,8 +11,8 @@ public class FireStationListPerson {
 	private String address;
 	private String phone;
 	private int age;
-	private List<String> medications;
-	private List<String> allergies;
+	private List<String> medications = new ArrayList<>();
+	private List<String> allergies = new ArrayList<>();
 
 	public String getStation() {
 		return station;

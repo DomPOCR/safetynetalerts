@@ -1,7 +1,5 @@
 package com.safetynet.safetyalerts.controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +55,7 @@ public class FirestationController {
 		List<FireStationListPhone> firestationInfo = fireStationService
 				.getFireStationListPhone(firestation);
 
-		List<FireStationListPhone> fireStationWithoutDuplicate = new ArrayList<FireStationListPhone>(
-				new HashSet<FireStationListPhone>(firestationInfo));
-
-		return fireStationWithoutDuplicate;
+		return firestationInfo;
 
 	}
 
@@ -72,10 +67,7 @@ public class FirestationController {
 		List<FireStationCoveragePerson> firestationInfo = fireStationService
 				.getFireStationCoveragePerson(stationNumber);
 
-		List<FireStationCoveragePerson> fireStationWithoutDuplicate = new ArrayList<FireStationCoveragePerson>(
-				new HashSet<FireStationCoveragePerson>(firestationInfo));
-
-		return fireStationWithoutDuplicate;
+		return firestationInfo;
 
 	}
 }
