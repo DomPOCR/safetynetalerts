@@ -233,6 +233,7 @@
 				  </execution>
 		        </executions>
 	        </plugin>
+	        <!-- Plugin for jacoco report-->
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.safetynet.safetyalerts.dto.FireStationCoveragePerson;
 import com.safetynet.safetyalerts.dto.FireStationListPerson;
 import com.safetynet.safetyalerts.dto.FireStationListPhone;
+import com.safetynet.safetyalerts.dto.FireStationPersonAtAddress;
 import com.safetynet.safetyalerts.service.FirestationService;
 
 //Controller expose les API REST pour gérer les requetes qui viennent d'un client web
@@ -66,6 +67,18 @@ public class FirestationController {
 
 		List<FireStationCoveragePerson> firestationInfo = fireStationService
 				.getFireStationCoveragePerson(stationNumber);
+
+		return firestationInfo;
+
+	}
+
+	@GetMapping(path = "flood/stations")
+	@ResponseStatus(HttpStatus.OK)
+	public List<FireStationPersonAtAddress> getFireStationPersonAtAddress(
+			@RequestParam List<String> stations) {
+
+		List<FireStationPersonAtAddress> firestationInfo = fireStationService
+				.getFireStationPersonAtAddress(stations);
 
 		return firestationInfo;
 

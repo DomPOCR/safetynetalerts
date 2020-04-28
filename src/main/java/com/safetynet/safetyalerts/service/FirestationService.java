@@ -14,6 +14,8 @@ import com.safetynet.safetyalerts.dao.PersonDao;
 import com.safetynet.safetyalerts.dto.FireStationCoveragePerson;
 import com.safetynet.safetyalerts.dto.FireStationListPerson;
 import com.safetynet.safetyalerts.dto.FireStationListPhone;
+import com.safetynet.safetyalerts.dto.FireStationPersonAtAddress;
+import com.safetynet.safetyalerts.dto.PersonInfo;
 import com.safetynet.safetyalerts.dto.PersonList;
 import com.safetynet.safetyalerts.model.Firestation;
 import com.safetynet.safetyalerts.model.Medicalrecord;
@@ -82,7 +84,7 @@ public class FirestationService {
 			}
 
 			Firestation firestation = firestationdao
-					.FireStationAtAddress(address);
+					.fireStationAtAddress(address);
 
 			if (firestation != null) {
 				fireStationInfo.setStation(firestation.getStation());
@@ -103,7 +105,7 @@ public class FirestationService {
 	public List<FireStationListPhone> getFireStationListPhone(String station) {
 
 		List<Firestation> listFireStationAddress = firestationdao
-				.FireStationAdressbyStation(station);
+				.fireStationAdressbyStation(station);
 
 		List<FireStationListPhone> fireStationListPhone = new ArrayList<>();
 
@@ -145,7 +147,7 @@ public class FirestationService {
 			String station) {
 
 		List<Firestation> listFireStationAddress = firestationdao
-				.FireStationAdressbyStation(station);
+				.fireStationAdressbyStation(station);
 
 		List<FireStationCoveragePerson> fireStationCoveragePerson = new ArrayList<>();
 
@@ -195,6 +197,65 @@ public class FirestationService {
 		}
 		fireStationCoveragePerson.add(fireStationInfo);
 		return fireStationCoveragePerson;
+	}
 
+	// http://localhost:8080/flood/stations?stations=<a list of station_numbers>
+	// Cette url doit retourner une liste de tous les foyers desservis par la
+	// caserne. Cette liste doit regrouper les personnes par adresse. Elle doit
+	// aussi inclure le nom, le numéro de téléphone et l'âge des habitants, et
+	// faire figurer leurs antécédents médicaux (médicaments, posologie et
+	// allergies) à côté de chaque nom
+
+	public List<FireStationPersonAtAddress> getFireStationPersonAtAddress(
+			List<String> station) {
+
+		List<FireStationPersonAtAddress> fireStationPersonAtAddress = new ArrayList<>();
+
+		for (String Station : station) { // Pour chaque n° de station
+
+			// Récupération de son adresse
+
+			List<Firestation> listFireStationAddress = firestationdao
+					.fireStationAdressbyStation(Station);
+
+			for (Firestation firestation : listFireStationAddress) {
+
+				FireStationPersonAtAddress fireStationInfo = new FireStationPersonAtAddress();
+				PersonInfo personInfo = new PersonInfo();
+
+				// Récupération des habitants et de leurs infos médicales à
+				// cette adresse
+				List<Person> personByAddress = persondao
+						.listPersonByAddress(firestation.getAddress());
+
+				for (Person person : personByAddress) {
+
+					Medicalrecord personMedicalRecord = medicalrecorddao
+							.getMedicalrecordInfo(personInfo.getLastName(),
+									personInfo.getFirstName());
+
+					if (personMedicalRecord != null) {
+
+						int age = CalculateAge.personBirthDate(
+								personMedicalRecord.getBirthdate());
+
+						personInfo.setAge(age);
+						personInfo.setMedications(
+								personMedicalRecord.getMedications());
+						personInfo.setAllergies(
+								personMedicalRecord.getAllergies());
+					}
+					personInfo.setAddress(person.getAddress());
+					personInfo.setLastName(person.getLastName());
+					personInfo.setFirstName(person.getFirstName());
+					personInfo.setPhone(person.getPhone());
+				}
+				fireStationInfo.setAddress(firestation.getAddress());
+				fireStationInfo.getPersonAtAddress().add(personInfo);
+				fireStationInfo.setStation(Station);
+				fireStationPersonAtAddress.add(fireStationInfo);
+			}
+		}
+		return fireStationPersonAtAddress;
 	}
 }

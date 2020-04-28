@@ -9,6 +9,7 @@ public class PersonInfo {
 	private String lastName;
 	private String address;
 	private int age;
+	private String phone;
 	private String email;
 	private List<String> medications = new ArrayList<>();
 	private List<String> allergies = new ArrayList<>();
@@ -36,6 +37,13 @@ public class PersonInfo {
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getEmail() {
 		return email;

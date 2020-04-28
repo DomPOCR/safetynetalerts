@@ -23,7 +23,7 @@ public class FirestationDaoImpl implements FirestationDao {
 	}
 
 	@Override
-	public Firestation FireStationAtAddress(String Address) {
+	public Firestation fireStationAtAddress(String Address) {
 
 		Database db = dataRepository.getDatabase();
 
@@ -36,7 +36,7 @@ public class FirestationDaoImpl implements FirestationDao {
 	}
 
 	@Override
-	public List<Firestation> FireStationAdressbyStation(String Station) {
+	public List<Firestation> fireStationAdressbyStation(String Station) {
 
 		List<Firestation> ListFirestation = new ArrayList<Firestation>();
 
