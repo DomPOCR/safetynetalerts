@@ -18,6 +18,28 @@ public class PersonDaoImpl implements PersonDao {
 	@Autowired
 	private MedicalrecordDao medicalrecorddao;
 
+	// Création d'une personne
+	@Override
+	public void createPerson(Person person) {
+		// Ajout de la nouvelle personne en mémoire
+		dataRepository.getDatabase().getPersons().add(person);
+
+		// Commit pour appliquer les changements sur le JSON
+		dataRepository.commit();
+	}
+
+	// Suppression d'une personne
+	@Override
+	public boolean deletePerson(Person person) {
+		// Suppression de la personne en mémoire
+		boolean result = dataRepository.getDatabase().getPersons()
+				.remove(person);
+
+		// Commit pour appliquer les changements sur le JSON
+		dataRepository.commit();
+		return result;
+	}
+
 	// Liste l'ensemble des personnes du fichier
 	@Override
 	public List<Person> listPerson() {
@@ -75,4 +97,5 @@ public class PersonDaoImpl implements PersonDao {
 		}
 		return ListPerson;
 	}
+
 }

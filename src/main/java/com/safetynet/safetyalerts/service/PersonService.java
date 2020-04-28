@@ -13,6 +13,8 @@ import com.safetynet.safetyalerts.dao.MedicalrecordDao;
 import com.safetynet.safetyalerts.dao.PersonDao;
 import com.safetynet.safetyalerts.dto.ChildInfo;
 import com.safetynet.safetyalerts.dto.PersonInfo;
+import com.safetynet.safetyalerts.exceptions.DataAlreadyExist;
+import com.safetynet.safetyalerts.exceptions.DataNotFound;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
 import com.safetynet.safetyalerts.utility.CalculateAge;
@@ -24,6 +26,38 @@ public class PersonService {
 	PersonDao persondao;
 	@Autowired
 	MedicalrecordDao medicalrecorddao;
+
+	// Création d'une personne
+	public void createPerson(Person person) {
+
+		// Vérification que la personne n'existe pas dans la DAO (nom + prénom)
+		if (!persondao.listPerson().contains(person)) {
+			persondao.createPerson(person);
+		} else {
+			throw new DataAlreadyExist("La personne existe déjà !!");
+		}
+	}
+
+	// MAJ personne (= suppression et création)
+	public void updatePerson(Person person) {
+
+		// Vérification que la personne existe dans la DAO (nom + prénom)
+		if (persondao.listPerson().remove(person)) {
+			persondao.createPerson(person);
+		} else {
+			throw new DataNotFound("La personne n'existe pas !!");
+		}
+
+	}
+
+	// Suppression d'une personne
+	public void deletePerson(Person person) {
+		// Vérification que la personne existe dans la DAO (nom + prénom)
+		if (!persondao.deletePerson(person)) {
+			throw new DataNotFound("La personne n'existe pas !!");
+		}
+
+	}
 
 	// http://localhost:8080/person
 
@@ -131,4 +165,5 @@ public class PersonService {
 		}
 		return listChildInfo;
 	}
+
 }

@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class EndPointIntrouvableException extends RuntimeException {
+public class EndPointNotFoundException extends RuntimeException {
 
-	public EndPointIntrouvableException(String s) {
+	public EndPointNotFoundException(String s) {
 		super(s);
 	}
 
