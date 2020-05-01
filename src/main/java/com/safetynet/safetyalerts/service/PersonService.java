@@ -2,6 +2,7 @@ package com.safetynet.safetyalerts.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -69,8 +70,9 @@ public class PersonService {
 		List<String> listPersons = new ArrayList<String>();
 
 		for (Person person : listPerson) {
-			listPersons.add(person.getFirstName() + " " + person.getLastName());
+			listPersons.add(person.toString());
 		}
+		Collections.sort(listPersons);
 		return listPersons;
 	}
 

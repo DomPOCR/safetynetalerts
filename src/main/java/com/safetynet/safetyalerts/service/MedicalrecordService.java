@@ -1,6 +1,7 @@
 package com.safetynet.safetyalerts.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,9 @@ public class MedicalrecordService {
 		List<String> listMedicalrecords = new ArrayList<String>();
 
 		for (Medicalrecord Medicalrecord : listMedicalrecord) {
-			listMedicalrecords.add(Medicalrecord.getFirstName() + " "
-					+ Medicalrecord.getLastName() + " "
-					+ Medicalrecord.getMedications() + " "
-					+ Medicalrecord.getAllergies());
+			listMedicalrecords.add(Medicalrecord.toString());
 		}
+		Collections.sort(listMedicalrecords);
 		return listMedicalrecords;
 	}
 

@@ -72,8 +72,7 @@ public class FirestationService {
 		List<String> listFirestations = new ArrayList<String>();
 
 		for (Firestation firestation : listFirestation) {
-			listFirestations.add(
-					firestation.getStation() + " " + firestation.getAddress());
+			listFirestations.add(firestation.toString());
 		}
 		Collections.sort(listFirestations);
 		return listFirestations;

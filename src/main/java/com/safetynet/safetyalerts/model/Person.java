@@ -55,8 +55,9 @@ public class Person {
 
 	@Override
 	public String toString() {
-		return "Person [firstName=" + firstName + ", lastName=" + lastName
-				+ "]";
+		return "Person [lastName=" + lastName + ", firstName=" + firstName
+				+ ", address=" + address + ", city=" + city + ", zip=" + zip
+				+ ", phone=" + phone + ", email=" + email + "]";
 	}
 	@Override // 2 personnes sont identiques si elles ont le même nom & prénom
 	public int hashCode() {

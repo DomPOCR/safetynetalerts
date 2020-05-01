@@ -17,9 +17,10 @@ public class Firestation {
 	public void setStation(String station) {
 		this.station = station;
 	}
+
 	@Override
 	public String toString() {
-		return "Firestation [address=" + address + ", station=" + station + "]";
+		return "Firestation [station=" + station + ", address=" + address + "]";
 	}
 	@Override // 2 stations sont identiques si elles ont le même n° & adresse
 	public int hashCode() {
