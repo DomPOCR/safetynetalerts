@@ -30,6 +30,31 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
+	// Création personne
+	@PostMapping(path = "person")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void createPerson(@RequestBody Person person) {
+
+		personService.createPerson(person);
+	}
+
+	// MAJ personne
+	@PutMapping(path = "person")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void updatePerson(@RequestBody Person person) {
+
+		personService.updatePerson(person);
+	}
+
+	// Suppression personne
+
+	@DeleteMapping(path = "person")
+	@ResponseStatus(HttpStatus.RESET_CONTENT)
+	public void deletePerson(@RequestBody Person person) {
+
+		personService.deletePerson(person);
+	}
+
 	@GetMapping(path = "communityEmail")
 	@ResponseStatus(HttpStatus.OK)
 	public Collection<String> getCommunityEmail(@RequestParam String city) {
@@ -69,24 +94,4 @@ public class PersonController {
 		return child;
 	}
 
-	@PostMapping(path = "person")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void createPerson(@RequestBody Person person) {
-
-		personService.createPerson(person);
-	}
-
-	@PutMapping(path = "person")
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updatePerson(@RequestBody Person person) {
-
-		personService.updatePerson(person);
-	}
-
-	@DeleteMapping(path = "person")
-	@ResponseStatus(HttpStatus.RESET_CONTENT)
-	public void deletePerson(@RequestBody Person person) {
-
-		personService.deletePerson(person);
-	}
 }

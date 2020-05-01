@@ -34,7 +34,8 @@ public class PersonService {
 		if (!persondao.listPerson().contains(person)) {
 			persondao.createPerson(person);
 		} else {
-			throw new DataAlreadyExist("La personne existe déjà !!");
+			throw new DataAlreadyExist(
+					"La personne " + person.toString() + " existe déjà !!");
 		}
 	}
 
@@ -45,7 +46,8 @@ public class PersonService {
 		if (persondao.listPerson().remove(person)) {
 			persondao.createPerson(person);
 		} else {
-			throw new DataNotFound("La personne n'existe pas !!");
+			throw new DataNotFound(
+					"La personne " + person.toString() + " n'existe pas !!");
 		}
 
 	}
@@ -54,9 +56,9 @@ public class PersonService {
 	public void deletePerson(Person person) {
 		// Vérification que la personne existe dans la DAO (nom + prénom)
 		if (!persondao.deletePerson(person)) {
-			throw new DataNotFound("La personne n'existe pas !!");
+			throw new DataNotFound(
+					"La personne " + person.toString() + " n'existe pas !!");
 		}
-
 	}
 
 	// http://localhost:8080/person
@@ -67,8 +69,7 @@ public class PersonService {
 		List<String> listPersons = new ArrayList<String>();
 
 		for (Person person : listPerson) {
-			listPersons.add("Liste des personnes du fichier : "
-					+ person.getFirstName() + " " + person.getLastName());
+			listPersons.add(person.getFirstName() + " " + person.getLastName());
 		}
 		return listPersons;
 	}
@@ -84,8 +85,7 @@ public class PersonService {
 		Set<String> listEmails = new HashSet<String>();
 
 		for (Person person : listPerson) {
-			listEmails.add("email des habitants de la ville de " + city + " : "
-					+ person.getEmail());
+			listEmails.add(person.getEmail());
 		}
 		return listEmails;
 	}

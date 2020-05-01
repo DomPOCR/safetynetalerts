@@ -22,11 +22,10 @@ public class MedicalrecordService {
 		List<String> listMedicalrecords = new ArrayList<String>();
 
 		for (Medicalrecord Medicalrecord : listMedicalrecord) {
-			listMedicalrecords
-					.add("Liste des informations médicales du fichier  " + " : "
-							+ Medicalrecord.getFirstName() + " "
-							+ Medicalrecord.getLastName() + " "
-							+ Medicalrecord.getAllergies());
+			listMedicalrecords.add(Medicalrecord.getFirstName() + " "
+					+ Medicalrecord.getLastName() + " "
+					+ Medicalrecord.getMedications() + " "
+					+ Medicalrecord.getAllergies());
 		}
 		return listMedicalrecords;
 	}
@@ -39,10 +38,9 @@ public class MedicalrecordService {
 		List<String> listMedicalrecordInfo = new ArrayList<String>();
 
 		for (Medicalrecord Medicalrecord : listMedicalrecord) {
-			listMedicalrecordInfo
-					.add("Liste des informations médicales du fichier  " + " : "
-							+ Medicalrecord.getFirstName() + " "
-							+ Medicalrecord.getLastName() + " "
+			listMedicalrecordInfo.add(
+					Medicalrecord.getFirstName() + Medicalrecord.getLastName()
+							+ Medicalrecord.getMedications()
 							+ Medicalrecord.getAllergies());
 		}
 		return listMedicalrecordInfo;

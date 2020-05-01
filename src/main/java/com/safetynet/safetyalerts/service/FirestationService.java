@@ -1,6 +1,7 @@
 package com.safetynet.safetyalerts.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +18,8 @@ import com.safetynet.safetyalerts.dto.FireStationListPhone;
 import com.safetynet.safetyalerts.dto.FireStationPersonAtAddress;
 import com.safetynet.safetyalerts.dto.PersonInfo;
 import com.safetynet.safetyalerts.dto.PersonList;
+import com.safetynet.safetyalerts.exceptions.DataAlreadyExist;
+import com.safetynet.safetyalerts.exceptions.DataNotFound;
 import com.safetynet.safetyalerts.model.Firestation;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
@@ -32,16 +35,47 @@ public class FirestationService {
 	@Autowired
 	MedicalrecordDao medicalrecorddao;
 
+	// Création station
+	public void createFirestation(Firestation firestation) {
+
+		// Vérification que la station n'existe pas dans la DAO
+		if (!firestationdao.listFirestation().contains(firestation)) {
+			firestationdao.createFirestation(firestation);
+		} else {
+			throw new DataAlreadyExist(
+					"La station " + firestation.toString() + " existe déjà !!");
+		}
+	}
+
+	// MAJ numéro station à partir d'une adresse (= suppression et création)
+	public void UpdateFirestation(Firestation firestation) {
+
+		// Vérification que la station existe dans la DAO
+		if (!firestationdao.updateFirestation(firestation)) {
+
+			throw new DataNotFound("La station " + firestation.toString()
+					+ " n'existe pas !!");
+		}
+	}
+	// Suppression station
+	public void deleteFirestation(Firestation firestation) {
+
+		// Vérification que la station existe dans la DAO
+		if (!firestationdao.deleteFirestation(firestation)) {
+			throw new DataNotFound("La station " + firestation.toString()
+					+ " n'existe pas !!");
+		}
+	}
 	public List<String> getFirestation() {
 
 		List<Firestation> listFirestation = firestationdao.listFirestation();
 		List<String> listFirestations = new ArrayList<String>();
 
 		for (Firestation firestation : listFirestation) {
-			listFirestations.add("Liste des casernes de pompiers du fichier  "
-					+ " : n° " + firestation.getStation() + " à l'Addresse : "
-					+ firestation.getAddress());
+			listFirestations.add(
+					firestation.getStation() + " " + firestation.getAddress());
 		}
+		Collections.sort(listFirestations);
 		return listFirestations;
 	}
 
@@ -258,4 +292,5 @@ public class FirestationService {
 		}
 		return fireStationPersonAtAddress;
 	}
+
 }

@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +17,7 @@ import com.safetynet.safetyalerts.dto.FireStationCoveragePerson;
 import com.safetynet.safetyalerts.dto.FireStationListPerson;
 import com.safetynet.safetyalerts.dto.FireStationListPhone;
 import com.safetynet.safetyalerts.dto.FireStationPersonAtAddress;
+import com.safetynet.safetyalerts.model.Firestation;
 import com.safetynet.safetyalerts.service.FirestationService;
 
 //Controller expose les API REST pour gérer les requetes qui viennent d'un client web
@@ -26,6 +31,29 @@ public class FirestationController {
 	@Autowired
 	private FirestationService fireStationService;
 
+	// Création Firestation
+	@PostMapping(path = "firestation")
+	@ResponseStatus(HttpStatus.CREATED)
+	public void createFirestation(@RequestBody Firestation firestation) {
+
+		fireStationService.createFirestation(firestation);
+	}
+
+	// MAJ personne
+	@PutMapping(path = "firestation")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void updateFirestation(@RequestBody Firestation firestation) {
+
+		fireStationService.UpdateFirestation(firestation);
+	}
+	// Suppression FireStation
+	@DeleteMapping(path = "firestation")
+	@ResponseStatus(HttpStatus.RESET_CONTENT)
+	public void deleteFirestation(@RequestBody Firestation firestation) {
+
+		fireStationService.deleteFirestation(firestation);
+	}
+
 	@GetMapping(path = "firestationlist")
 	@ResponseStatus(HttpStatus.OK)
 	public List<String> getFirestation() {
@@ -33,7 +61,6 @@ public class FirestationController {
 		List<String> firestationInfo = fireStationService.getFirestation();
 
 		return firestationInfo;
-
 	}
 
 	@GetMapping(path = "fire")
@@ -45,7 +72,6 @@ public class FirestationController {
 				.getFireStationListPerson(address);
 
 		return firestationInfo;
-
 	}
 
 	@GetMapping(path = "phoneAlert")
@@ -57,7 +83,6 @@ public class FirestationController {
 				.getFireStationListPhone(firestation);
 
 		return firestationInfo;
-
 	}
 
 	@GetMapping(path = "firestation")
@@ -69,7 +94,6 @@ public class FirestationController {
 				.getFireStationCoveragePerson(stationNumber);
 
 		return firestationInfo;
-
 	}
 
 	@GetMapping(path = "flood/stations")
@@ -81,6 +105,5 @@ public class FirestationController {
 				.getFireStationPersonAtAddress(stations);
 
 		return firestationInfo;
-
 	}
 }

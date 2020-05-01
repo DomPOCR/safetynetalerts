@@ -10,6 +10,7 @@ public interface PersonDao {
 	List<Person> listPersonInfo(String lastname, String firstname);
 	List<Person> listPersonByCity(String city);
 	List<Person> listPersonByAddress(String address);
+
 	void createPerson(Person person);
 	boolean deletePerson(Person person);
 

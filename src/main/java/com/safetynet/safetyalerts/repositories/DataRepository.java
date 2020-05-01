@@ -31,7 +31,7 @@ public class DataRepository {
 
 	public Database getDatabase() {
 
-		return this.db;
+		return DataRepository.db;
 	}
 	// Charger le fichier data.json en mémoire dans l'objet database
 	public DataRepository() throws JsonMappingException, IOException {

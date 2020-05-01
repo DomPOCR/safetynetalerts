@@ -15,8 +15,6 @@ public class PersonDaoImpl implements PersonDao {
 
 	@Autowired
 	private DataRepository dataRepository;
-	@Autowired
-	private MedicalrecordDao medicalrecorddao;
 
 	// Création d'une personne
 	@Override

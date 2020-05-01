@@ -10,4 +10,8 @@ public interface FirestationDao {
 	Firestation fireStationAtAddress(String Address);
 	List<Firestation> fireStationAdressbyStation(String Station);
 
+	boolean createFirestation(Firestation firestation);
+	boolean updateFirestation(Firestation firestation);
+	boolean deleteFirestation(Firestation firestation);
+
 }
