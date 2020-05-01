@@ -20,7 +20,7 @@ public class FirestationDaoImpl implements FirestationDao {
 	@Override
 	public boolean createFirestation(Firestation firestation) {
 
-		// Ajout de la nouvelle personne en mémoire
+		// Ajout de la nouvelle station en mémoire
 		boolean result = dataRepository.getDatabase().getFirestations()
 				.add(firestation);
 
@@ -34,8 +34,6 @@ public class FirestationDaoImpl implements FirestationDao {
 	@Override
 	public boolean updateFirestation(Firestation firestation) {
 
-		// int num = 0;
-		// List<Firestation> firestationToUpdate = new ArrayList<>();
 		Database db = dataRepository.getDatabase();
 
 		for (Firestation fs : db.getFirestations()) {

@@ -16,6 +16,16 @@ public class MedicalrecordDaoImpl implements MedicalrecordDao {
 	@Autowired
 	private DataRepository dataRepository;
 
+	// Création dossier médical
+	@Override
+	public void createMedicalRecord(Medicalrecord medicalrecord) {
+		// Ajout de la nouvelle personne en mémoire
+		dataRepository.getDatabase().getMedicalrecords().add(medicalrecord);
+
+		// Commit pour appliquer les changements sur le JSON
+		dataRepository.commit();
+	}
+
 	@Override
 	public List<Medicalrecord> listMedicalrecord() {
 
@@ -54,4 +64,5 @@ public class MedicalrecordDaoImpl implements MedicalrecordDao {
 		}
 		return null;
 	}
+
 }

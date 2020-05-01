@@ -35,8 +35,8 @@ public class PersonService {
 		if (!persondao.listPerson().contains(person)) {
 			persondao.createPerson(person);
 		} else {
-			throw new DataAlreadyExist(
-					"La personne " + person.toString() + " existe déjà !!");
+			throw new DataAlreadyExist("La personne " + person.getFirstName()
+					+ " " + person.getLastName() + " existe déjà !!");
 		}
 	}
 

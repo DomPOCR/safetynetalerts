@@ -11,4 +11,5 @@ public interface MedicalrecordDao {
 			String firstname);
 
 	Medicalrecord getMedicalrecordInfo(String lastname, String firstname);
+	void createMedicalRecord(Medicalrecord medicalrecord);
 }

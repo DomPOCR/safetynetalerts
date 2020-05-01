@@ -7,14 +7,47 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.safetyalerts.dao.MedicalrecordDaoImpl;
+import com.safetynet.safetyalerts.dao.MedicalrecordDao;
+import com.safetynet.safetyalerts.dao.PersonDao;
+import com.safetynet.safetyalerts.exceptions.DataAlreadyExist;
 import com.safetynet.safetyalerts.model.Medicalrecord;
+import com.safetynet.safetyalerts.model.Person;
 
 @Service
 public class MedicalrecordService {
 
 	@Autowired
-	MedicalrecordDaoImpl medicalrecorddao;
+	MedicalrecordDao medicalrecorddao;
+	@Autowired
+	PersonDao persondao;
+
+	// Création dossier médical
+	public void createMedicalRecord(Medicalrecord medicalrecord) {
+
+		// Vérification que la personne existe dans la DAO (nom + prénom)
+		// Et qu'elle n'a pas de dossier médical
+
+		List<Person> personInfo = persondao.listPersonInfo(
+				medicalrecord.getLastName(), medicalrecord.getFirstName());
+		String mess = null;
+
+		if ((!medicalrecorddao.listMedicalrecord().contains(medicalrecord))
+				&& (personInfo != null) && (!personInfo.isEmpty())) {
+			medicalrecorddao.createMedicalRecord(medicalrecord);
+
+		} else {
+			if (medicalrecorddao.listMedicalrecord().contains(medicalrecord)) {
+				mess = "Le dossier médical de " + medicalrecord.getFirstName()
+						+ " " + medicalrecord.getLastName() + " existe déjà !!";
+			}
+			if ((personInfo == null) || (personInfo.isEmpty())) {
+				mess = "La personne " + medicalrecord.getFirstName() + " "
+						+ medicalrecord.getLastName() + " n'existe pas !!";
+			}
+			throw new DataAlreadyExist(mess);
+		}
+
+	}
 
 	public List<String> getMedicalrecord() {
 
@@ -44,4 +77,5 @@ public class MedicalrecordService {
 		}
 		return listMedicalrecordInfo;
 	}
+
 }
