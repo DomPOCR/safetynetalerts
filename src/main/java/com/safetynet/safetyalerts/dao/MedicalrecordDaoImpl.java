@@ -18,12 +18,52 @@ public class MedicalrecordDaoImpl implements MedicalrecordDao {
 
 	// Création dossier médical
 	@Override
-	public void createMedicalRecord(Medicalrecord medicalrecord) {
+	public boolean createMedicalRecord(Medicalrecord medicalrecord) {
 		// Ajout de la nouvelle personne en mémoire
 		dataRepository.getDatabase().getMedicalrecords().add(medicalrecord);
 
 		// Commit pour appliquer les changements sur le JSON
 		dataRepository.commit();
+		return true;
+	}
+
+	// MAJ dossier médical
+	@Override
+	public boolean updateMedicalRecord(Medicalrecord medicalrecord) {
+
+		Database db = dataRepository.getDatabase();
+
+		for (Medicalrecord fs : db.getMedicalrecords()) {
+
+			if (fs.getFirstName().equalsIgnoreCase(medicalrecord.getFirstName())
+					&& fs.getLastName()
+							.equalsIgnoreCase(medicalrecord.getLastName())) {
+
+				// Suppression de l'ancien dossier médical
+				boolean result = deleteMedicalRecord(fs);
+				// Création du nouveau dossier médical si ancien supprimé
+				if (result) {
+					result = createMedicalRecord(medicalrecord);
+					// Commit pour appliquer les changements sur le JSON
+					dataRepository.commit();
+					return result;
+				}
+			}
+		}
+		return false; // Le dossier médical n'a pas été trouvé
+	}
+
+	// Suppression dossier médical
+	@Override
+	public boolean deleteMedicalRecord(Medicalrecord medicalrecord) {
+
+		// Suppression de la personne en mémoire
+		boolean result = dataRepository.getDatabase().getMedicalrecords()
+				.remove(medicalrecord);
+
+		// Commit pour appliquer les changements sur le JSON
+		dataRepository.commit();
+		return result;
 	}
 
 	@Override
@@ -64,5 +104,4 @@ public class MedicalrecordDaoImpl implements MedicalrecordDao {
 		}
 		return null;
 	}
-
 }

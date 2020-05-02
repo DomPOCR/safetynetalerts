@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.safetynet.safetyalerts.dao.MedicalrecordDao;
 import com.safetynet.safetyalerts.dao.PersonDao;
 import com.safetynet.safetyalerts.exceptions.DataAlreadyExist;
+import com.safetynet.safetyalerts.exceptions.DataNotFound;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
 
@@ -25,7 +26,7 @@ public class MedicalrecordService {
 	public void createMedicalRecord(Medicalrecord medicalrecord) {
 
 		// Vérification que la personne existe dans la DAO (nom + prénom)
-		// Et qu'elle n'a pas de dossier médical
+		// Et quelle n'a pas de dossier médical
 
 		List<Person> personInfo = persondao.listPersonInfo(
 				medicalrecord.getLastName(), medicalrecord.getFirstName());
@@ -38,7 +39,8 @@ public class MedicalrecordService {
 		} else {
 			if (medicalrecorddao.listMedicalrecord().contains(medicalrecord)) {
 				mess = "Le dossier médical de " + medicalrecord.getFirstName()
-						+ " " + medicalrecord.getLastName() + " existe déjà !!";
+						+ " " + medicalrecord.getLastName()
+						+ " existe déjà !! ";
 			}
 			if ((personInfo == null) || (personInfo.isEmpty())) {
 				mess = "La personne " + medicalrecord.getFirstName() + " "
@@ -47,6 +49,29 @@ public class MedicalrecordService {
 			throw new DataAlreadyExist(mess);
 		}
 
+	}
+
+	// MAJ dossier médical (à partir du nom / prénom)
+	public void updateMedicalRecord(Medicalrecord medicalrecord) {
+
+		// Vérification que la personne existe dans la DAO
+		if (!medicalrecorddao.updateMedicalRecord(medicalrecord)) {
+
+			throw new DataNotFound("La personne " + medicalrecord.getLastName()
+					+ " " + medicalrecord.getFirstName() + " n'existe pas !!");
+		}
+	}
+
+	// Suppression dossier médical (à partir du nom / prénom)
+	public void deleteMedicalRecord(Medicalrecord medicalrecord) {
+
+		// Vérification que le dossier médical existe dans la DAO (nom + prénom)
+		if (!medicalrecorddao.deleteMedicalRecord(medicalrecord)) {
+			throw new DataNotFound("La personne " + medicalrecord.getLastName()
+					+ " " + medicalrecord.getFirstName()
+					+ " n'a pas de dossier médical !!");
+
+		}
 	}
 
 	public List<String> getMedicalrecord() {
@@ -77,5 +102,4 @@ public class MedicalrecordService {
 		}
 		return listMedicalrecordInfo;
 	}
-
 }

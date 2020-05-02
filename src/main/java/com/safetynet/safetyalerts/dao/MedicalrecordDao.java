@@ -11,5 +11,9 @@ public interface MedicalrecordDao {
 			String firstname);
 
 	Medicalrecord getMedicalrecordInfo(String lastname, String firstname);
-	void createMedicalRecord(Medicalrecord medicalrecord);
+
+	boolean createMedicalRecord(Medicalrecord medicalrecord);
+	boolean updateMedicalRecord(Medicalrecord medicalrecord);
+	boolean deleteMedicalRecord(Medicalrecord medicalrecord);
+
 }
