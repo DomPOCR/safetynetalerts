@@ -3,6 +3,8 @@ package com.safetynet.safetyalerts.controller;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -33,7 +35,7 @@ public class PersonController {
 	// Création personne
 	@PostMapping(path = "person")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createPerson(@RequestBody Person person) {
+	public void createPerson(@RequestBody @Valid Person person) {
 
 		personService.createPerson(person);
 	}
