@@ -13,5 +13,5 @@ public interface PersonDao {
 
 	void createPerson(Person person);
 	boolean deletePerson(Person person);
-
+	boolean updatePerson(Person person);
 }

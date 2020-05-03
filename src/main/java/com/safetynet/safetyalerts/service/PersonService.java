@@ -44,9 +44,7 @@ public class PersonService {
 	public void updatePerson(Person person) {
 
 		// Vérification que la personne existe dans la DAO (nom + prénom)
-		if (persondao.listPerson().remove(person)) {
-			persondao.createPerson(person);
-		} else {
+		if (!persondao.updatePerson(person)) {
 			throw new DataNotFound(
 					"La personne " + person.toString() + " n'existe pas !!");
 		}

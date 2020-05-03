@@ -26,6 +26,17 @@ public class PersonDaoImpl implements PersonDao {
 		dataRepository.commit();
 	}
 
+	// MAJ personne
+	@Override
+	public boolean updatePerson(Person person) {
+
+		if (listPerson().remove(person)) {
+			createPerson(person);
+			return true;
+		}
+		return false;
+	}
+
 	// Suppression d'une personne
 	@Override
 	public boolean deletePerson(Person person) {
@@ -95,5 +106,4 @@ public class PersonDaoImpl implements PersonDao {
 		}
 		return ListPerson;
 	}
-
 }
