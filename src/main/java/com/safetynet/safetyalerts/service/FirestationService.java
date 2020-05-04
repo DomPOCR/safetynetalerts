@@ -48,7 +48,7 @@ public class FirestationService {
 	}
 
 	// MAJ numéro station à partir d'une adresse (= suppression et création)
-	public void UpdateFirestation(Firestation firestation) {
+	public void updateFirestation(Firestation firestation) {
 
 		// Vérification que la station existe dans la DAO
 		if (!firestationdao.updateFirestation(firestation)) {

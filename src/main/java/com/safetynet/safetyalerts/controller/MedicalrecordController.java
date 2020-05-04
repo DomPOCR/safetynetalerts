@@ -45,7 +45,7 @@ public class MedicalrecordController {
 	public void createMedicalRecord(@RequestBody Medicalrecord medicalrecord) {
 
 		checkInputMedicalrecord(medicalrecord);
-		medicalrecordService.createMedicalRecord(medicalrecord);
+		medicalrecordService.createMedicalrecord(medicalrecord);
 	}
 
 	// MAJ Dossier médical d'une personne
@@ -54,7 +54,7 @@ public class MedicalrecordController {
 	public void updateMedicalRecord(@RequestBody Medicalrecord medicalrecord) {
 
 		checkInputMedicalrecord(medicalrecord);
-		medicalrecordService.updateMedicalRecord(medicalrecord);
+		medicalrecordService.updateMedicalrecord(medicalrecord);
 	}
 
 	// SuppressionDossier médical d'une personne
@@ -64,7 +64,7 @@ public class MedicalrecordController {
 	public void deleteMedicalRecord(@RequestBody Medicalrecord medicalrecord) {
 
 		checkInputMedicalrecord(medicalrecord);
-		medicalrecordService.deleteMedicalRecord(medicalrecord);
+		medicalrecordService.deleteMedicalrecord(medicalrecord);
 	}
 
 	@GetMapping(path = "medicalRecord")

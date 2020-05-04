@@ -64,19 +64,25 @@ public class PersonControllerTU {
 		ObjectMapper obm = new ObjectMapper();
 		ObjectNode jsonPerson = obm.createObjectNode();
 
+		// GIVEN
+
+		jsonPerson.set("firstName", TextNode.valueOf(firstNameTest));
+		jsonPerson.set("lastName", TextNode.valueOf(""));
+
+		// WHEN
+		// THEN
 		mockmvc.perform(MockMvcRequestBuilders.post("/person")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonPerson.toString()))
-				.andExpect(MockMvcResultMatchers.status().isCreated());
-		// .andExpect(MockMvcResultMatchers.status().isBadRequest());
+				.andExpect(MockMvcResultMatchers.status().isBadRequest());
 	}
 
 	@Test
 	void createPersonWhenPersonAlreadyExist() throws Exception {
 
-		// on mock persoService et on lui dit de renvoyer l'exception
+		// on mock personService et on lui dit de renvoyer l'exception
 		// DataALreadExist
-		// quand on lui demande de renvoyer une personne
+		// quand on lui demande de renvoyer une personne existante
 
 		Mockito.doThrow(DataAlreadyExistException.class).when(personService)
 				.createPerson(Mockito.any());
@@ -84,8 +90,13 @@ public class PersonControllerTU {
 		ObjectMapper obm = new ObjectMapper();
 		ObjectNode jsonPerson = obm.createObjectNode();
 
+		// GIVEN
+
 		jsonPerson.set("firstName", TextNode.valueOf(firstNameTest));
 		jsonPerson.set("lastName", TextNode.valueOf(lastNameTest));
+
+		// WHEN
+		// THEN
 
 		mockmvc.perform(MockMvcRequestBuilders.post("/person")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -101,8 +112,13 @@ public class PersonControllerTU {
 		ObjectMapper obm = new ObjectMapper();
 		ObjectNode jsonPerson = obm.createObjectNode();
 
+		// GIVEN
+
 		jsonPerson.set("firstName", TextNode.valueOf(firstNameTest));
 		jsonPerson.set("lastName", TextNode.valueOf(lastNameTest));
+
+		// WHEN
+		// THEN
 
 		mockmvc.perform(MockMvcRequestBuilders.put("/person")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -111,13 +127,38 @@ public class PersonControllerTU {
 	}
 
 	@Test
+	void updatePersonInvalid() throws Exception {
+
+		ObjectMapper obm = new ObjectMapper();
+		ObjectNode jsonPerson = obm.createObjectNode();
+
+		// GIVEN
+
+		jsonPerson.set("firstName", TextNode.valueOf(""));
+		jsonPerson.set("lastName", TextNode.valueOf(""));
+
+		// WHEN
+		// THEN
+
+		mockmvc.perform(MockMvcRequestBuilders.put("/person")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonPerson.toString()))
+				.andExpect(MockMvcResultMatchers.status().isBadRequest());
+	}
+
+	@Test
 	void updatePersonWhenPersonNotFound() throws Exception {
 
 		Mockito.doThrow(DataNotFoundException.class).when(personService)
 				.updatePerson(Mockito.any());
 
+		// GIVEN
+
 		ObjectMapper obm = new ObjectMapper();
 		ObjectNode jsonPerson = obm.createObjectNode();
+
+		// WHEN
+		// THEN
 
 		jsonPerson.set("firstName", TextNode.valueOf(firstNameTest));
 		jsonPerson.set("lastName", TextNode.valueOf(lastNameTest));
@@ -136,13 +177,38 @@ public class PersonControllerTU {
 		ObjectMapper obm = new ObjectMapper();
 		ObjectNode jsonPerson = obm.createObjectNode();
 
+		// GIVEN
+
 		jsonPerson.set("firstName", TextNode.valueOf(firstNameTest));
 		jsonPerson.set("lastName", TextNode.valueOf(lastNameTest));
+
+		// WHEN
+		// THEN
 
 		mockmvc.perform(MockMvcRequestBuilders.delete("/person")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonPerson.toString()))
 				.andExpect(MockMvcResultMatchers.status().isResetContent());
+	}
+
+	@Test
+	void deletePersonInvalid() throws Exception {
+
+		ObjectMapper obm = new ObjectMapper();
+		ObjectNode jsonPerson = obm.createObjectNode();
+
+		// GIVEN
+
+		jsonPerson.set("firstName", TextNode.valueOf(""));
+		jsonPerson.set("lastName", TextNode.valueOf(lastNameTest));
+
+		// WHEN
+		// THEN
+
+		mockmvc.perform(MockMvcRequestBuilders.delete("/person")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonPerson.toString()))
+				.andExpect(MockMvcResultMatchers.status().isBadRequest());
 	}
 
 	@Test
@@ -153,9 +219,13 @@ public class PersonControllerTU {
 		ObjectMapper obm = new ObjectMapper();
 		ObjectNode jsonPerson = obm.createObjectNode();
 
+		// GIVEN
+
 		jsonPerson.set("firstName", TextNode.valueOf(firstNameTest));
 		jsonPerson.set("lastName", TextNode.valueOf(lastNameTest));
 
+		// WHEN
+		// THEN
 		mockmvc.perform(MockMvcRequestBuilders.delete("/person")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonPerson.toString()))

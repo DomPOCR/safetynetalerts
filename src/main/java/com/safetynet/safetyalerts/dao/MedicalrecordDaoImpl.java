@@ -18,7 +18,7 @@ public class MedicalrecordDaoImpl implements MedicalrecordDao {
 
 	// Création dossier médical
 	@Override
-	public boolean createMedicalRecord(Medicalrecord medicalrecord) {
+	public boolean createMedicalrecord(Medicalrecord medicalrecord) {
 		// Ajout de la nouvelle personne en mémoire
 		dataRepository.getDatabase().getMedicalrecords().add(medicalrecord);
 
@@ -29,7 +29,7 @@ public class MedicalrecordDaoImpl implements MedicalrecordDao {
 
 	// MAJ dossier médical
 	@Override
-	public boolean updateMedicalRecord(Medicalrecord medicalrecord) {
+	public boolean updateMedicalrecord(Medicalrecord medicalrecord) {
 
 		Database db = dataRepository.getDatabase();
 
@@ -40,10 +40,10 @@ public class MedicalrecordDaoImpl implements MedicalrecordDao {
 							.equalsIgnoreCase(medicalrecord.getLastName())) {
 
 				// Suppression de l'ancien dossier médical
-				boolean result = deleteMedicalRecord(fs);
+				boolean result = deleteMedicalrecord(fs);
 				// Création du nouveau dossier médical si ancien supprimé
 				if (result) {
-					result = createMedicalRecord(medicalrecord);
+					result = createMedicalrecord(medicalrecord);
 					// Commit pour appliquer les changements sur le JSON
 					dataRepository.commit();
 					return result;
@@ -55,7 +55,7 @@ public class MedicalrecordDaoImpl implements MedicalrecordDao {
 
 	// Suppression dossier médical
 	@Override
-	public boolean deleteMedicalRecord(Medicalrecord medicalrecord) {
+	public boolean deleteMedicalrecord(Medicalrecord medicalrecord) {
 
 		// Suppression de la personne en mémoire
 		boolean result = dataRepository.getDatabase().getMedicalrecords()

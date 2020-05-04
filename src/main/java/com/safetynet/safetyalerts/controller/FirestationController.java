@@ -32,13 +32,25 @@ public class FirestationController {
 	@Autowired
 	private FirestationService fireStationService;
 
-	// Vérification des données en entrée
+	// Vérification des données en entrée (Création)
 	public void checkInputFirestation(Firestation firestation) {
 
-		if ("".equals(firestation.getStation())
-				|| firestation.getStation() == null
-				|| "".equals(firestation.getAddress())
-				|| firestation.getAddress() == null) {
+		if (("".equals(firestation.getStation())
+				|| firestation.getStation() == null)
+				|| ("".equals(firestation.getAddress())
+						|| firestation.getAddress() == null)) {
+			throw new IllegalArgumentException(
+					"Le numéro OU l'adresse de la station sont obligatoires !!");
+		}
+	}
+
+	// Vérification des données en entrée (Suppression)
+	public void checkInputFirestationDelete(Firestation firestation) {
+
+		if (("".equals(firestation.getStation())
+				|| firestation.getStation() == null)
+				&& ("".equals(firestation.getAddress())
+						|| firestation.getAddress() == null)) {
 			throw new IllegalArgumentException(
 					"Le numéro OU l'adresse de la station sont obligatoires !!");
 		}
@@ -59,14 +71,14 @@ public class FirestationController {
 	public void updateFirestation(@RequestBody Firestation firestation) {
 
 		checkInputFirestation(firestation);
-		fireStationService.UpdateFirestation(firestation);
+		fireStationService.updateFirestation(firestation);
 	}
 	// Suppression FireStation
 	@DeleteMapping(path = "firestation")
 	@ResponseStatus(HttpStatus.RESET_CONTENT)
 	public void deleteFirestation(@RequestBody Firestation firestation) {
 
-		checkInputFirestation(firestation);
+		checkInputFirestationDelete(firestation);
 		fireStationService.deleteFirestation(firestation);
 	}
 
