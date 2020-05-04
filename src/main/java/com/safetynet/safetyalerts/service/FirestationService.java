@@ -18,8 +18,8 @@ import com.safetynet.safetyalerts.dto.FireStationListPhone;
 import com.safetynet.safetyalerts.dto.FireStationPersonAtAddress;
 import com.safetynet.safetyalerts.dto.PersonInfo;
 import com.safetynet.safetyalerts.dto.PersonList;
-import com.safetynet.safetyalerts.exceptions.DataAlreadyExist;
-import com.safetynet.safetyalerts.exceptions.DataNotFound;
+import com.safetynet.safetyalerts.exceptions.DataAlreadyExistException;
+import com.safetynet.safetyalerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyalerts.model.Firestation;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
@@ -42,7 +42,7 @@ public class FirestationService {
 		if (!firestationdao.listFirestation().contains(firestation)) {
 			firestationdao.createFirestation(firestation);
 		} else {
-			throw new DataAlreadyExist(
+			throw new DataAlreadyExistException(
 					"La station " + firestation.toString() + " existe déjà !!");
 		}
 	}
@@ -53,7 +53,7 @@ public class FirestationService {
 		// Vérification que la station existe dans la DAO
 		if (!firestationdao.updateFirestation(firestation)) {
 
-			throw new DataNotFound("La station " + firestation.toString()
+			throw new DataNotFoundException("La station " + firestation.toString()
 					+ " n'existe pas !!");
 		}
 	}
@@ -62,7 +62,7 @@ public class FirestationService {
 
 		// Vérification que la station existe dans la DAO
 		if (!firestationdao.deleteFirestation(firestation)) {
-			throw new DataNotFound("La station " + firestation.toString()
+			throw new DataNotFoundException("La station " + firestation.toString()
 					+ " n'existe pas !!");
 		}
 	}

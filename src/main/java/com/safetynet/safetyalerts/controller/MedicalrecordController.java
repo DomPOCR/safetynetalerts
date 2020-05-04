@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.safetynet.safetyalerts.exceptions.IllegalArgumentException;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.service.MedicalrecordService;
 
@@ -26,11 +27,24 @@ public class MedicalrecordController {
 	@Autowired
 	private MedicalrecordService medicalrecordService;
 
+	// Vérification des données en entrée
+	public void checkInputMedicalrecord(Medicalrecord medicalrecord) {
+
+		if ("".equals(medicalrecord.getFirstName())
+				|| medicalrecord.getFirstName() == null
+				|| "".equals(medicalrecord.getLastName())
+				|| medicalrecord.getLastName() == null) {
+			throw new IllegalArgumentException(
+					"Le nom ET le prénom sont obligatoires !!");
+		}
+	}
+
 	// Création Dossier médical
 	@PostMapping(path = "medicalRecord")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createMedicalRecord(@RequestBody Medicalrecord medicalrecord) {
 
+		checkInputMedicalrecord(medicalrecord);
 		medicalrecordService.createMedicalRecord(medicalrecord);
 	}
 
@@ -39,6 +53,7 @@ public class MedicalrecordController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateMedicalRecord(@RequestBody Medicalrecord medicalrecord) {
 
+		checkInputMedicalrecord(medicalrecord);
 		medicalrecordService.updateMedicalRecord(medicalrecord);
 	}
 
@@ -48,6 +63,7 @@ public class MedicalrecordController {
 	@ResponseStatus(HttpStatus.RESET_CONTENT)
 	public void deleteMedicalRecord(@RequestBody Medicalrecord medicalrecord) {
 
+		checkInputMedicalrecord(medicalrecord);
 		medicalrecordService.deleteMedicalRecord(medicalrecord);
 	}
 

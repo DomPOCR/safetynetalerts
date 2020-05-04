@@ -17,6 +17,7 @@ import com.safetynet.safetyalerts.dto.FireStationCoveragePerson;
 import com.safetynet.safetyalerts.dto.FireStationListPerson;
 import com.safetynet.safetyalerts.dto.FireStationListPhone;
 import com.safetynet.safetyalerts.dto.FireStationPersonAtAddress;
+import com.safetynet.safetyalerts.exceptions.IllegalArgumentException;
 import com.safetynet.safetyalerts.model.Firestation;
 import com.safetynet.safetyalerts.service.FirestationService;
 
@@ -31,19 +32,33 @@ public class FirestationController {
 	@Autowired
 	private FirestationService fireStationService;
 
+	// Vérification des données en entrée
+	public void checkInputFirestation(Firestation firestation) {
+
+		if ("".equals(firestation.getStation())
+				|| firestation.getStation() == null
+				|| "".equals(firestation.getAddress())
+				|| firestation.getAddress() == null) {
+			throw new IllegalArgumentException(
+					"Le numéro OU l'adresse de la station sont obligatoires !!");
+		}
+	}
+
 	// Création Firestation
 	@PostMapping(path = "firestation")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createFirestation(@RequestBody Firestation firestation) {
 
+		checkInputFirestation(firestation);
 		fireStationService.createFirestation(firestation);
 	}
 
-	// MAJ personne
+	// MAJ Firestation
 	@PutMapping(path = "firestation")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateFirestation(@RequestBody Firestation firestation) {
 
+		checkInputFirestation(firestation);
 		fireStationService.UpdateFirestation(firestation);
 	}
 	// Suppression FireStation
@@ -51,6 +66,7 @@ public class FirestationController {
 	@ResponseStatus(HttpStatus.RESET_CONTENT)
 	public void deleteFirestation(@RequestBody Firestation firestation) {
 
+		checkInputFirestation(firestation);
 		fireStationService.deleteFirestation(firestation);
 	}
 

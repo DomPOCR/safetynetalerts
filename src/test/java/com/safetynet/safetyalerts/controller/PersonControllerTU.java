@@ -18,8 +18,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import com.safetynet.safetyalerts.exceptions.DataAlreadyExist;
-import com.safetynet.safetyalerts.exceptions.DataNotFound;
+import com.safetynet.safetyalerts.exceptions.DataAlreadyExistException;
+import com.safetynet.safetyalerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyalerts.service.PersonService;
 
 @ExtendWith(SpringExtension.class)
@@ -78,7 +78,7 @@ public class PersonControllerTU {
 		// DataALreadExist
 		// quand on lui demande de renvoyer une personne
 
-		Mockito.doThrow(DataAlreadyExist.class).when(personService)
+		Mockito.doThrow(DataAlreadyExistException.class).when(personService)
 				.createPerson(Mockito.any());
 
 		ObjectMapper obm = new ObjectMapper();
@@ -113,7 +113,7 @@ public class PersonControllerTU {
 	@Test
 	void updatePersonWhenPersonNotFound() throws Exception {
 
-		Mockito.doThrow(DataNotFound.class).when(personService)
+		Mockito.doThrow(DataNotFoundException.class).when(personService)
 				.updatePerson(Mockito.any());
 
 		ObjectMapper obm = new ObjectMapper();
@@ -147,7 +147,7 @@ public class PersonControllerTU {
 
 	@Test
 	void deletePersonWhenPersonNotFound() throws Exception {
-		Mockito.doThrow(DataNotFound.class).when(personService)
+		Mockito.doThrow(DataNotFoundException.class).when(personService)
 				.deletePerson(Mockito.any());
 
 		ObjectMapper obm = new ObjectMapper();

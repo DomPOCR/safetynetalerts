@@ -14,8 +14,8 @@ import com.safetynet.safetyalerts.dao.MedicalrecordDao;
 import com.safetynet.safetyalerts.dao.PersonDao;
 import com.safetynet.safetyalerts.dto.ChildInfo;
 import com.safetynet.safetyalerts.dto.PersonInfo;
-import com.safetynet.safetyalerts.exceptions.DataAlreadyExist;
-import com.safetynet.safetyalerts.exceptions.DataNotFound;
+import com.safetynet.safetyalerts.exceptions.DataAlreadyExistException;
+import com.safetynet.safetyalerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
 import com.safetynet.safetyalerts.utility.CalculateAge;
@@ -35,7 +35,7 @@ public class PersonService {
 		if (!persondao.listPerson().contains(person)) {
 			persondao.createPerson(person);
 		} else {
-			throw new DataAlreadyExist("La personne " + person.getFirstName()
+			throw new DataAlreadyExistException("La personne " + person.getFirstName()
 					+ " " + person.getLastName() + " existe déjà !!");
 		}
 	}
@@ -45,7 +45,7 @@ public class PersonService {
 
 		// Vérification que la personne existe dans la DAO (nom + prénom)
 		if (!persondao.updatePerson(person)) {
-			throw new DataNotFound(
+			throw new DataNotFoundException(
 					"La personne " + person.toString() + " n'existe pas !!");
 		}
 
@@ -55,7 +55,7 @@ public class PersonService {
 	public void deletePerson(Person person) {
 		// Vérification que la personne existe dans la DAO (nom + prénom)
 		if (!persondao.deletePerson(person)) {
-			throw new DataNotFound(
+			throw new DataNotFoundException(
 					"La personne " + person.toString() + " n'existe pas !!");
 		}
 	}

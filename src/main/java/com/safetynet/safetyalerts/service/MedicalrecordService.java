@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.safetyalerts.dao.MedicalrecordDao;
 import com.safetynet.safetyalerts.dao.PersonDao;
-import com.safetynet.safetyalerts.exceptions.DataAlreadyExist;
-import com.safetynet.safetyalerts.exceptions.DataNotFound;
+import com.safetynet.safetyalerts.exceptions.DataAlreadyExistException;
+import com.safetynet.safetyalerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
 
@@ -46,7 +46,7 @@ public class MedicalrecordService {
 				mess = "La personne " + medicalrecord.getFirstName() + " "
 						+ medicalrecord.getLastName() + " n'existe pas !!";
 			}
-			throw new DataAlreadyExist(mess);
+			throw new DataAlreadyExistException(mess);
 		}
 
 	}
@@ -57,7 +57,7 @@ public class MedicalrecordService {
 		// Vérification que la personne existe dans la DAO
 		if (!medicalrecorddao.updateMedicalRecord(medicalrecord)) {
 
-			throw new DataNotFound("La personne " + medicalrecord.getLastName()
+			throw new DataNotFoundException("La personne " + medicalrecord.getLastName()
 					+ " " + medicalrecord.getFirstName() + " n'existe pas !!");
 		}
 	}
@@ -67,7 +67,7 @@ public class MedicalrecordService {
 
 		// Vérification que le dossier médical existe dans la DAO (nom + prénom)
 		if (!medicalrecorddao.deleteMedicalRecord(medicalrecord)) {
-			throw new DataNotFound("La personne " + medicalrecord.getLastName()
+			throw new DataNotFoundException("La personne " + medicalrecord.getLastName()
 					+ " " + medicalrecord.getFirstName()
 					+ " n'a pas de dossier médical !!");
 

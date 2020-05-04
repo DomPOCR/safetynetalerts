@@ -4,9 +4,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.CONFLICT)
-public class DataAlreadyExist extends RuntimeException {
+public class DataAlreadyExistException extends RuntimeException {
 
-	public DataAlreadyExist(String message) {
+	private static final long serialVersionUID = 884722897606411587L;
+
+	public DataAlreadyExistException(String message) {
 
 		super(message);
 

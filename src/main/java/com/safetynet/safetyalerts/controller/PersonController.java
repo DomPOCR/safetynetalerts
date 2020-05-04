@@ -3,8 +3,6 @@ package com.safetynet.safetyalerts.controller;
 import java.util.Collection;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetyalerts.dto.ChildInfo;
 import com.safetynet.safetyalerts.dto.PersonInfo;
+import com.safetynet.safetyalerts.exceptions.IllegalArgumentException;
 import com.safetynet.safetyalerts.model.Person;
 import com.safetynet.safetyalerts.service.PersonService;
 
@@ -32,11 +31,23 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
+	// Vérification des données en entrée
+	public void checkInputPerson(Person person) {
+
+		if ("".equals(person.getFirstName()) || person.getFirstName() == null
+				|| "".equals(person.getLastName())
+				|| person.getLastName() == null) {
+			throw new IllegalArgumentException(
+					"Le nom ET le prénom sont obligatoires !!");
+		}
+	}
+
 	// Création personne
 	@PostMapping(path = "person")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createPerson(@RequestBody @Valid Person person) {
+	public void createPerson(@RequestBody Person person) {
 
+		checkInputPerson(person);
 		personService.createPerson(person);
 	}
 
@@ -45,6 +56,7 @@ public class PersonController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updatePerson(@RequestBody Person person) {
 
+		checkInputPerson(person);
 		personService.updatePerson(person);
 	}
 
@@ -54,6 +66,7 @@ public class PersonController {
 	@ResponseStatus(HttpStatus.RESET_CONTENT)
 	public void deletePerson(@RequestBody Person person) {
 
+		checkInputPerson(person);
 		personService.deletePerson(person);
 	}
 
