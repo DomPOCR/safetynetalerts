@@ -23,7 +23,6 @@ import com.safetynet.safetyalerts.exceptions.DataNotFoundException;
 import com.safetynet.safetyalerts.service.PersonService;
 
 @ExtendWith(SpringExtension.class)
-// @WebMvcTest(controllers = PersonController.class)
 @SpringBootTest
 
 @AutoConfigureMockMvc
