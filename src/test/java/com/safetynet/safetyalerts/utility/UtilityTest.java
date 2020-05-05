@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 
 @AutoConfigureMockMvc
-public class UtilityTU {
+public class UtilityTest {
 
 	@Autowired
 	MockMvc mockmvc;

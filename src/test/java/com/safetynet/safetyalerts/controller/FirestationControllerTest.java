@@ -24,7 +24,7 @@ import com.safetynet.safetyalerts.service.FirestationService;
 @SpringBootTest
 
 @AutoConfigureMockMvc
-class FirestationControllerTU {
+class FirestationControllerTest {
 
 	@Autowired
 	MockMvc mockmvc;

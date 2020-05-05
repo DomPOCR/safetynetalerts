@@ -225,9 +225,9 @@
 						d'intégration -->
 					<!-- Excludes integration tests when unit tests are run. -->
 					<excludes>
-						<exclude>**/*IT*.java</exclude>
+						<exclude>**/*IT.java</exclude>
 					</excludes>
-				</configuration>
+					</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -249,7 +249,8 @@
 							<destFile>${project.build.directory}/jacoco-ut.exec</destFile>
 							<!-- Sets the name of the property containing the settings for JaCoCo 
 								runtime agent. -->
-							<propertyName>surefireArgLine</propertyName>
+					 	<propertyName>surefireArgLine</propertyName> 
+					
 						</configuration>
 					</execution>
 				<execution>

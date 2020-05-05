@@ -24,7 +24,7 @@ import com.safetynet.safetyalerts.service.MedicalrecordService;
 @SpringBootTest
 
 @AutoConfigureMockMvc
-class MedicalrecordTU {
+class MedicalrecordTest {
 
 	@Autowired
 	MockMvc mockmvc;
