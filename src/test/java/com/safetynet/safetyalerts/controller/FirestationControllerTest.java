@@ -1,5 +1,8 @@
 package com.safetynet.safetyalerts.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -341,7 +344,52 @@ class FirestationControllerTest {
 		mockmvc.perform(MockMvcRequestBuilders.get("/firestation")
 				.param("stationNumber", "9"))
 				.andExpect(MockMvcResultMatchers.content().string("[]"));
+	}
 
+	@Test
+	void getFireStationPersonAtAddress() throws Exception {
+
+		List<String> stations = Arrays.asList("1", "2");
+
+		// Test 1 : on envoie une requête GET avec en paramètre des n° de
+		// station
+		// valide
+		// + on vérifie que le statut de la réponse est 200
+
+		mockmvc.perform(MockMvcRequestBuilders.get("/flood/stations")
+				.param("stations", "1", "2"))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+
+		// Test 2 : on vérifie que le service a bien été appelé avec les bons
+		// paramètres
+
+		Mockito.verify(firestationService, Mockito.times(1))
+				.getFireStationPersonAtAddress(stations);
+
+		// Test 3 : on envoie une requête GET avec en paramètre une station
+		// qui n'existe pas
+		// + on vérifie que le retour est vide
+
+		mockmvc.perform(MockMvcRequestBuilders.get("/flood/stations")
+				.param("stations", "0"))
+				.andExpect(MockMvcResultMatchers.content().string("[]"));
+	}
+
+	// Controleur "/firestationlist"
+
+	@Test
+	void getFirestation() throws Exception {
+
+		// Etape 1 : on envoie une requête GET
+		// + on vérifie que le statut de la réponse est 200
+
+		mockmvc.perform(MockMvcRequestBuilders.get("/firestationlist"))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+
+		// Etape 2 : on vérifie que le service a bien été appelé avec les bons
+		// paramètres
+
+		Mockito.verify(firestationService, Mockito.times(1)).getFirestation();
 	}
 
 }

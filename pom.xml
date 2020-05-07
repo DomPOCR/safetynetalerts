@@ -13,7 +13,7 @@
 	<artifactId>safetynetalerts</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>safetynetalerts</name>
-	<description>P5-Créez votre première application web avec Spring Boot</description>
+	<description>P5-Creez votre premiere application web avec Spring Boot</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

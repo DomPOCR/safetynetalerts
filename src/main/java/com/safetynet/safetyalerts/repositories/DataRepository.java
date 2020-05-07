@@ -41,16 +41,16 @@ public class DataRepository {
 			this.getClass().getClassLoader();
 			ips = ClassLoader.getSystemResourceAsStream(jsonFile);
 			db = objectMapper.readerFor(Database.class).readValue(ips);
-			logger.info("OK - Fichier JSON chargé");
+			logger.info("OK - FILE_OPEN : " + jsonFile);
 
 		} catch (FileNotFoundException e) {
-			logger.info("KO - FILE_NOT_FOUND" + jsonFile);
+			logger.info("KO - FILE_NOT_FOUND :" + jsonFile);
 		}
 		// Fermeture du fichier
 		try {
 			ips.close();
 		} catch (IOException e) {
-			logger.info("KO - PROBLEM TO CLOSE FILE" + jsonFile);
+			logger.info("KO - PROBLEM TO CLOSE FILE :" + jsonFile);
 		}
 	}
 	public void commit() {

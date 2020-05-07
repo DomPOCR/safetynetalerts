@@ -124,6 +124,7 @@ class MedicalrecordTest {
 		mockmvc.perform(MockMvcRequestBuilders.put("/Medicalrecord")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonMedicalrecord.toString()))
+				// DPANO
 				// .andExpect(MockMvcResultMatchers.status().isNoContent());
 				.andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
@@ -145,6 +146,7 @@ class MedicalrecordTest {
 		mockmvc.perform(MockMvcRequestBuilders.put("/Medicalrecord")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonMedicalrecord.toString()))
+				// DPANO
 				// .andExpect(MockMvcResultMatchers.status().isBadRequest());
 				.andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
@@ -172,4 +174,21 @@ class MedicalrecordTest {
 				.andExpect(MockMvcResultMatchers.status().isNotFound());
 	}
 
+	// Controleur "/medicalRecord"
+
+	@Test
+	void getmedicalRecord() throws Exception {
+
+		// Etape 1 : on envoie une requête GET
+		// + on vérifie que le statut de la réponse est 200
+
+		mockmvc.perform(MockMvcRequestBuilders.get("/medicalRecord"))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+
+		// Etape 2 : on vérifie que le service a bien été appelé avec les bons
+		// paramètres
+
+		Mockito.verify(medicalrecordService, Mockito.times(1))
+				.getMedicalrecord();
+	}
 }
