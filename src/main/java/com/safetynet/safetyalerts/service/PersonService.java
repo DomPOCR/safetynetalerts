@@ -29,14 +29,16 @@ public class PersonService {
 	MedicalrecordDao medicalrecorddao;
 
 	// Création d'une personne
-	public void createPerson(Person person) {
+	public boolean createPerson(Person person) {
 
 		// Vérification que la personne n'existe pas dans la DAO (nom + prénom)
 		if (!persondao.listPerson().contains(person)) {
 			persondao.createPerson(person);
+			return true;
 		} else {
-			throw new DataAlreadyExistException("La personne " + person.getFirstName()
-					+ " " + person.getLastName() + " existe déjà !!");
+			throw new DataAlreadyExistException(
+					"La personne " + person.getFirstName() + " "
+							+ person.getLastName() + " existe déjà !!");
 		}
 	}
 

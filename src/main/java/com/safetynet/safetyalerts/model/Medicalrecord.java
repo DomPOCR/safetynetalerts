@@ -3,17 +3,35 @@ package com.safetynet.safetyalerts.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 public class Medicalrecord {
 
 	// "firstName":"John", "lastName":"Boyd", "birthdate":"03/06/1984",
 	// "medications"
 
+	@NotBlank
 	private String firstName;
+	@NotBlank
 	private String lastName;
 	private String birthdate;
 
 	private List<String> medications = new ArrayList<String>();
 	private List<String> allergies = new ArrayList<String>();
+
+	public Medicalrecord() {
+		super();
+	}
+
+	public Medicalrecord(String firstName, String lastName, String birthdate,
+			List<String> medications, List<String> allergies) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthdate = birthdate;
+		this.medications = medications;
+		this.allergies = allergies;
+	}
 
 	public String getFirstName() {
 		return firstName;

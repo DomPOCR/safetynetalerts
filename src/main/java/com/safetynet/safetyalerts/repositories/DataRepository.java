@@ -11,8 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.safetynet.safetyalerts.exceptions.DataRepositoryException;
 import com.safetynet.safetyalerts.model.Database;
 
 @Repository
@@ -29,53 +29,69 @@ public class DataRepository {
 	private static Database db;
 	private String jsonFile = "data.json";
 
+	// Commit uniquement dans le main et pas dans les tests pour ne pas modifier
+	// le JSON
+	private boolean commit = true;
+
 	public Database getDatabase() {
 
 		return DataRepository.db;
 	}
-	// Charger le fichier data.json en mémoire dans l'objet database
-	public DataRepository() throws JsonMappingException, IOException {
 
-		InputStream ips = null;
-		try {
-			this.getClass().getClassLoader();
-			ips = ClassLoader.getSystemResourceAsStream(jsonFile);
+	public DataRepository() throws DataRepositoryException {
+
+		this.init();
+
+	}
+
+	// Charger le fichier data.json en mémoire dans l'objet database
+
+	public void init() {
+
+		try (InputStream ips = ClassLoader
+				.getSystemResourceAsStream(jsonFile)) {
 			db = objectMapper.readerFor(Database.class).readValue(ips);
 			logger.info("OK - FILE_OPEN : " + jsonFile);
 
 		} catch (FileNotFoundException e) {
 			logger.info("KO - FILE_NOT_FOUND :" + jsonFile);
-		}
-		// Fermeture du fichier
-		try {
-			ips.close();
+			throw new DataRepositoryException("KO - FILE_NOT_FOUND", e);
 		} catch (IOException e) {
-			logger.info("KO - PROBLEM TO CLOSE FILE :" + jsonFile);
+			logger.info("KO - I/O ERROR :" + jsonFile);
+			throw new DataRepositoryException("KO - I/O ERROR", e);
 		}
 	}
 	public void commit() {
 
-		// Récupérer le path du JSON
-		URL url = ClassLoader.getSystemResource(jsonFile);
+		if (commit) {
 
-		// On ouvre un flux d'écriture vers le fichier JSON
+			// Récupérer le path du JSON
+			URL url = ClassLoader.getSystemResource(jsonFile);
 
-		try (OutputStream ops = new FileOutputStream(url.getFile())) {
+			// On ouvre un flux d'écriture vers le fichier JSON
 
-			// Ecriture du fichier JSON avec formatage
-			// (WithDefaultPrettyPrinter)
-			objectMapper.writerWithDefaultPrettyPrinter().writeValue(ops, db);
+			try (OutputStream ops = new FileOutputStream(url.getFile())) {
 
-			logger.info("OK - fichier JSON  mis à jour " + jsonFile);
+				// Ecriture du fichier JSON avec formatage
+				// (WithDefaultPrettyPrinter)
+				objectMapper.writerWithDefaultPrettyPrinter().writeValue(ops,
+						db);
 
-		} catch (FileNotFoundException e) {
-			logger.info("KO - FILE_NOT_FOUND" + jsonFile);
+				logger.info("OK - fichier JSON  mis à jour " + jsonFile);
+
+			} catch (FileNotFoundException e) {
+				logger.info("KO - FILE_NOT_FOUND" + jsonFile);
+				throw new DataRepositoryException("KO - FILE_NOT_FOUND", e);
+			} catch (IOException e) {
+				logger.info("KO - I/O ERROR" + jsonFile);
+				throw new DataRepositoryException("KO - I/O ERROR", e);
+			}
 		}
-		// Fermeture du fichier
-		catch (IOException e) {
-			logger.info("KO - PROBLEM TO CLOSE FILE" + jsonFile);
-		}
+	}
 
+	// Autorisation de modifier la velur de commit
+	public void setCommit(boolean commit) {
+		this.commit = commit;
 	}
 
 }

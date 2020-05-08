@@ -2,6 +2,8 @@ package com.safetynet.safetyalerts.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,18 +44,20 @@ public class MedicalrecordController {
 	// Création Dossier médical
 	@PostMapping(path = "medicalRecord")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createMedicalRecord(@RequestBody Medicalrecord medicalrecord) {
+	public void createMedicalRecord(
+			@RequestBody @Valid Medicalrecord medicalrecord) {
 
-		checkInputMedicalrecord(medicalrecord);
+		// checkInputMedicalrecord(medicalrecord);
 		medicalrecordService.createMedicalrecord(medicalrecord);
 	}
 
 	// MAJ Dossier médical d'une personne
 	@PutMapping(path = "medicalRecord")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateMedicalRecord(@RequestBody Medicalrecord medicalrecord) {
+	public void updateMedicalRecord(
+			@RequestBody @Valid Medicalrecord medicalrecord) {
 
-		checkInputMedicalrecord(medicalrecord);
+		// checkInputMedicalrecord(medicalrecord);
 		medicalrecordService.updateMedicalrecord(medicalrecord);
 	}
 
@@ -61,9 +65,10 @@ public class MedicalrecordController {
 
 	@DeleteMapping(path = "medicalRecord")
 	@ResponseStatus(HttpStatus.RESET_CONTENT)
-	public void deleteMedicalRecord(@RequestBody Medicalrecord medicalrecord) {
+	public void deleteMedicalRecord(
+			@RequestBody @Valid Medicalrecord medicalrecord) {
 
-		checkInputMedicalrecord(medicalrecord);
+		// checkInputMedicalrecord(medicalrecord);
 		medicalrecordService.deleteMedicalrecord(medicalrecord);
 	}
 

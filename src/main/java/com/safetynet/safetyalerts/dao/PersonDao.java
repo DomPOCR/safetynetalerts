@@ -11,7 +11,7 @@ public interface PersonDao {
 	List<Person> listPersonByCity(String city);
 	List<Person> listPersonByAddress(String address);
 
-	void createPerson(Person person);
+	boolean createPerson(Person person);
 	boolean deletePerson(Person person);
 	boolean updatePerson(Person person);
 }

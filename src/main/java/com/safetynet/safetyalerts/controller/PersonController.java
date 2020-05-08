@@ -3,6 +3,8 @@ package com.safetynet.safetyalerts.controller;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,18 +47,18 @@ public class PersonController {
 	// Création personne
 	@PostMapping(path = "person")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createPerson(@RequestBody Person person) {
+	public void createPerson(@RequestBody @Valid Person person) {
 
-		checkInputPerson(person);
+		// checkInputPerson(person);
 		personService.createPerson(person);
 	}
 
 	// MAJ personne
 	@PutMapping(path = "person")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updatePerson(@RequestBody Person person) {
+	public void updatePerson(@RequestBody @Valid Person person) {
 
-		checkInputPerson(person);
+		// checkInputPerson(person);
 		personService.updatePerson(person);
 	}
 
@@ -64,9 +66,9 @@ public class PersonController {
 
 	@DeleteMapping(path = "person")
 	@ResponseStatus(HttpStatus.RESET_CONTENT)
-	public void deletePerson(@RequestBody Person person) {
+	public void deletePerson(@RequestBody @Valid Person person) {
 
-		checkInputPerson(person);
+		// checkInputPerson(person);
 		personService.deletePerson(person);
 	}
 

@@ -2,6 +2,8 @@ package com.safetynet.safetyalerts.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,26 +61,26 @@ public class FirestationController {
 	// Création Firestation
 	@PostMapping(path = "firestation")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createFirestation(@RequestBody Firestation firestation) {
+	public void createFirestation(@RequestBody @Valid Firestation firestation) {
 
-		checkInputFirestation(firestation);
+		// checkInputFirestation(firestation);
 		fireStationService.createFirestation(firestation);
 	}
 
 	// MAJ Firestation
 	@PutMapping(path = "firestation")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updateFirestation(@RequestBody Firestation firestation) {
+	public void updateFirestation(@RequestBody @Valid Firestation firestation) {
 
-		checkInputFirestation(firestation);
+		// checkInputFirestation(firestation);
 		fireStationService.updateFirestation(firestation);
 	}
 	// Suppression FireStation
 	@DeleteMapping(path = "firestation")
 	@ResponseStatus(HttpStatus.RESET_CONTENT)
-	public void deleteFirestation(@RequestBody Firestation firestation) {
+	public void deleteFirestation(@RequestBody @Valid Firestation firestation) {
 
-		checkInputFirestationDelete(firestation);
+		// checkInputFirestationDelete(firestation);
 		fireStationService.deleteFirestation(firestation);
 	}
 

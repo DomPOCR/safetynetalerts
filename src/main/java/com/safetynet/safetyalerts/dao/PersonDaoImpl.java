@@ -18,12 +18,13 @@ public class PersonDaoImpl implements PersonDao {
 
 	// Création d'une personne
 	@Override
-	public void createPerson(Person person) {
+	public boolean createPerson(Person person) {
 		// Ajout de la nouvelle personne en mémoire
 		dataRepository.getDatabase().getPersons().add(person);
 
 		// Commit pour appliquer les changements sur le JSON
 		dataRepository.commit();
+		return true;
 	}
 
 	// MAJ personne

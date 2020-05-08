@@ -225,7 +225,7 @@
 						d'intégration -->
 					<!-- Excludes integration tests when unit tests are run. -->
 					<excludes>
-						<exclude>**/*IT.java</exclude>
+						<exclude>**/*IT.java</exclude>						
 					</excludes>
 					</configuration>
 			</plugin>
@@ -340,8 +340,11 @@
 							<title>${project.name} : Fusion tests unitaires et d'intégration</title>
 							<dataFile>${project.build.directory}/jacoco-merged.exec</dataFile>
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-merged</outputDirectory>
-							<!-- <excludes> <exclude>com/safetynet/safetyalerts/model/**/*</exclude> 
-								<exclude>com/safetynet/safetyalerts/config/**/*</exclude> </excludes> -->
+							<excludes>
+								<exclude>*com/safetynet/safetyalerts/dto/**/*</exclude>
+								<exclude>*com/safetynet/safetyalerts/model/**/*</exclude>
+								<exclude>*com/safetynet/safetyalerts/config/**/*</exclude>
+							</excludes>
 						</configuration>
 					</execution>
 				</executions>
