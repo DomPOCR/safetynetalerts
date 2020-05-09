@@ -16,6 +16,7 @@ import com.safetynet.safetyalerts.dto.ChildInfo;
 import com.safetynet.safetyalerts.dto.PersonInfo;
 import com.safetynet.safetyalerts.exceptions.DataAlreadyExistException;
 import com.safetynet.safetyalerts.exceptions.DataNotFoundException;
+import com.safetynet.safetyalerts.exceptions.InvalidArgumentException;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
 import com.safetynet.safetyalerts.utility.CalculateAge;
@@ -86,6 +87,10 @@ public class PersonService {
 		List<Person> listPerson = persondao.listPersonByCity(city);
 		Set<String> listEmails = new HashSet<String>();
 
+		if (city.isEmpty()) {
+
+			throw new InvalidArgumentException("La ville ne peut être vide !!");
+		}
 		for (Person person : listPerson) {
 			listEmails.add(person.getEmail());
 		}
@@ -140,6 +145,11 @@ public class PersonService {
 
 	public List<ChildInfo> getChildByAddress(String address) {
 
+		if (address.isEmpty()) {
+
+			throw new InvalidArgumentException(
+					"L'adresse ne peut être vide !!");
+		}
 		List<Person> personByAddress = persondao.listPersonByAddress(address);
 
 		List<ChildInfo> listChildInfo = new ArrayList<>();

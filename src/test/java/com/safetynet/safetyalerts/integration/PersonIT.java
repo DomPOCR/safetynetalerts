@@ -46,10 +46,8 @@ public class PersonIT {
 		// renvoie un jsonnode qu'on attend
 		JsonNode expectedJson = objectMapper.readTree(
 				ClassLoader.getSystemResourceAsStream("culverMail.json"));
-		System.out.println(response.getBody());
 		// on check le contenu
 		assertEquals(expectedJson, objectMapper.readTree(response.getBody()));
-
 	}
 
 	@Test

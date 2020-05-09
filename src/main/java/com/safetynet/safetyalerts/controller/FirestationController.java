@@ -19,7 +19,7 @@ import com.safetynet.safetyalerts.dto.FireStationCoveragePerson;
 import com.safetynet.safetyalerts.dto.FireStationListPerson;
 import com.safetynet.safetyalerts.dto.FireStationListPhone;
 import com.safetynet.safetyalerts.dto.FireStationPersonAtAddress;
-import com.safetynet.safetyalerts.exceptions.IllegalArgumentException;
+import com.safetynet.safetyalerts.exceptions.InvalidArgumentException;
 import com.safetynet.safetyalerts.model.Firestation;
 import com.safetynet.safetyalerts.service.FirestationService;
 
@@ -41,7 +41,7 @@ public class FirestationController {
 				|| firestation.getStation() == null)
 				|| ("".equals(firestation.getAddress())
 						|| firestation.getAddress() == null)) {
-			throw new IllegalArgumentException(
+			throw new InvalidArgumentException(
 					"Le numéro OU l'adresse de la station sont obligatoires !!");
 		}
 	}
@@ -53,7 +53,7 @@ public class FirestationController {
 				|| firestation.getStation() == null)
 				&& ("".equals(firestation.getAddress())
 						|| firestation.getAddress() == null)) {
-			throw new IllegalArgumentException(
+			throw new InvalidArgumentException(
 					"Le numéro OU l'adresse de la station sont obligatoires !!");
 		}
 	}

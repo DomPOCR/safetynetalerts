@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.safetyalerts.exceptions.IllegalArgumentException;
+import com.safetynet.safetyalerts.exceptions.InvalidArgumentException;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.service.MedicalrecordService;
 
@@ -36,7 +36,7 @@ public class MedicalrecordController {
 				|| medicalrecord.getFirstName() == null
 				|| "".equals(medicalrecord.getLastName())
 				|| medicalrecord.getLastName() == null) {
-			throw new IllegalArgumentException(
+			throw new InvalidArgumentException(
 					"Le nom ET le prénom sont obligatoires !!");
 		}
 	}

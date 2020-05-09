@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.safetyalerts.dto.ChildInfo;
 import com.safetynet.safetyalerts.dto.PersonInfo;
-import com.safetynet.safetyalerts.exceptions.IllegalArgumentException;
 import com.safetynet.safetyalerts.model.Person;
 import com.safetynet.safetyalerts.service.PersonService;
 
@@ -33,23 +32,11 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
-	// Vérification des données en entrée
-	public void checkInputPerson(Person person) {
-
-		if ("".equals(person.getFirstName()) || person.getFirstName() == null
-				|| "".equals(person.getLastName())
-				|| person.getLastName() == null) {
-			throw new IllegalArgumentException(
-					"Le nom ET le prénom sont obligatoires !!");
-		}
-	}
-
 	// Création personne
 	@PostMapping(path = "person")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createPerson(@RequestBody @Valid Person person) {
 
-		// checkInputPerson(person);
 		personService.createPerson(person);
 	}
 
@@ -58,7 +45,6 @@ public class PersonController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updatePerson(@RequestBody @Valid Person person) {
 
-		// checkInputPerson(person);
 		personService.updatePerson(person);
 	}
 
@@ -68,13 +54,13 @@ public class PersonController {
 	@ResponseStatus(HttpStatus.RESET_CONTENT)
 	public void deletePerson(@RequestBody @Valid Person person) {
 
-		// checkInputPerson(person);
 		personService.deletePerson(person);
 	}
 
 	@GetMapping(path = "communityEmail")
 	@ResponseStatus(HttpStatus.OK)
-	public Collection<String> getCommunityEmail(@RequestParam String city) {
+	public Collection<String> getCommunityEmail(
+			@RequestParam @Valid String city) {
 
 		Collection<String> communityEmail = personService
 				.getCommunityEmail(city);
@@ -93,7 +79,7 @@ public class PersonController {
 
 	@GetMapping(path = "personInfo")
 	@ResponseStatus(HttpStatus.OK)
-	public List<PersonInfo> getPersonInfo(@RequestParam String lastname,
+	public List<PersonInfo> getPersonInfo(@RequestParam @Valid String lastname,
 			@RequestParam(required = false) String firstname) {
 
 		List<PersonInfo> person = personService.getPersonInfo(lastname,
