@@ -20,6 +20,7 @@ import com.safetynet.safetyalerts.dto.PersonInfo;
 import com.safetynet.safetyalerts.dto.PersonList;
 import com.safetynet.safetyalerts.exceptions.DataAlreadyExistException;
 import com.safetynet.safetyalerts.exceptions.DataNotFoundException;
+import com.safetynet.safetyalerts.exceptions.InvalidArgumentException;
 import com.safetynet.safetyalerts.model.Firestation;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
@@ -53,8 +54,8 @@ public class FirestationService {
 		// Vérification que la station existe dans la DAO
 		if (!firestationdao.updateFirestation(firestation)) {
 
-			throw new DataNotFoundException("La station " + firestation.toString()
-					+ " n'existe pas !!");
+			throw new DataNotFoundException("La station "
+					+ firestation.toString() + " n'existe pas !!");
 		}
 	}
 	// Suppression station
@@ -62,8 +63,8 @@ public class FirestationService {
 
 		// Vérification que la station existe dans la DAO
 		if (!firestationdao.deleteFirestation(firestation)) {
-			throw new DataNotFoundException("La station " + firestation.toString()
-					+ " n'existe pas !!");
+			throw new DataNotFoundException("La station "
+					+ firestation.toString() + " n'existe pas !!");
 		}
 	}
 	public List<String> getFirestation() {
@@ -94,6 +95,11 @@ public class FirestationService {
 
 		List<FireStationListPerson> fireStationListPerson = new ArrayList<>();
 
+		if (address.isEmpty()) {
+
+			throw new InvalidArgumentException(
+					"L'adresse ne peut être vide !!");
+		}
 		for (Person person : personByAddress) {
 
 			FireStationListPerson fireStationInfo = new FireStationListPerson();
@@ -146,6 +152,12 @@ public class FirestationService {
 
 		FireStationListPhone fireStationInfo = new FireStationListPhone();
 
+		if (station.isEmpty()) {
+
+			throw new InvalidArgumentException(
+					"Le numéro de station ne peut être vide !!");
+		}
+
 		for (Firestation firestation : listFireStationAddress) {
 
 			List<Person> personByAddress = persondao
@@ -189,6 +201,11 @@ public class FirestationService {
 		int adultCount = 0;
 		int childCount = 0;
 
+		if (station.isEmpty()) {
+
+			throw new InvalidArgumentException(
+					"Le numéro de station ne peut être vide !!");
+		}
 		for (Firestation firestation : listFireStationAddress) {
 
 			PersonList personInfo = new PersonList();
@@ -243,6 +260,12 @@ public class FirestationService {
 			List<String> station) {
 
 		List<FireStationPersonAtAddress> fireStationPersonAtAddress = new ArrayList<>();
+
+		if (station.isEmpty()) {
+
+			throw new InvalidArgumentException(
+					"Le numéro de station ne peut être vide !!");
+		}
 
 		for (String Station : station) { // Pour chaque n° de station
 

@@ -112,6 +112,11 @@ public class PersonService {
 
 		List<PersonInfo> listPersonInfo = new ArrayList<>();
 
+		if (lastname.isEmpty()) {
+
+			throw new InvalidArgumentException("Le nom ne peut être vide !!");
+		}
+
 		for (Person person : listPerson) {
 
 			PersonInfo personInfo = new PersonInfo();

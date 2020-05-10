@@ -51,15 +51,18 @@ public class PersonIT {
 	}
 
 	@Test
-	void getPersonInfo400() throws Exception {
+	void getCommunityEmailInfo400() throws Exception {
 
-		ResponseEntity<String> response = clientRest.getForEntity("/personInfo",
-				String.class);
+		// On envoie une requête GET sans paramètre
+		ResponseEntity<String> response = clientRest
+				.getForEntity("/communityEmail?city=", String.class);
+		// on check le code retour 400
 		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-		JsonNode json = objectMapper.readTree(response.getBody());
-		assertEquals("Required String parameter 'lastname' is not present",
-				json.get("message").asText());
+		// renvoie un jsonnode qu'on attend
 
+		JsonNode json = objectMapper.readTree(response.getBody());
+		assertEquals("La ville ne peut être vide !!",
+				json.get("message").asText());
 	}
 
 	@Test
@@ -67,10 +70,71 @@ public class PersonIT {
 
 		ResponseEntity<String> response = clientRest
 				.getForEntity("/personInfo?lastname=Boyd", String.class);
+
 		assertEquals(HttpStatus.OK, response.getStatusCode());
+
 		JsonNode expectedJson = objectMapper
 				.readTree(ClassLoader.getSystemResourceAsStream("boyd.json"));
 		JsonNode json = objectMapper.readTree(response.getBody());
+
 		assertEquals(expectedJson, json);
+	}
+
+	@Test
+	void getPersonInfo400() throws Exception {
+
+		ResponseEntity<String> response = clientRest
+				.getForEntity("/personInfo?lastname=", String.class);
+
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+		JsonNode json = objectMapper.readTree(response.getBody());
+
+		assertEquals("Le nom ne peut être vide !!",
+				json.get("message").asText());
+
+	}
+
+	@Test
+	void getChildAlertWithChild() throws Exception {
+
+		ResponseEntity<String> response = clientRest.getForEntity(
+				"/childAlert?address=1509 Culver St", String.class);
+
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+
+		JsonNode expectedJson = objectMapper.readTree(
+				ClassLoader.getSystemResourceAsStream("1509CulverSt.json"));
+
+		JsonNode json = objectMapper.readTree(response.getBody());
+
+		assertEquals(expectedJson, json);
+	}
+
+	@Test
+	void getChildAlertWithChildInfo400() throws Exception {
+
+		ResponseEntity<String> response = clientRest
+				.getForEntity("/childAlert?address=", String.class);
+
+		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+		JsonNode json = objectMapper.readTree(response.getBody());
+
+		assertEquals("L'adresse ne peut être vide !!",
+				json.get("message").asText());
+	}
+
+	@Test
+	void getChildAlertWithoutChild() throws Exception {
+
+		ResponseEntity<String> response = clientRest.getForEntity(
+				"/childAlert?address=489 Manchester St", String.class);
+
+		assertEquals(HttpStatus.OK, response.getStatusCode());
+
+		JsonNode json = objectMapper.readTree(response.getBody());
+
+		assertEquals(json.size(), 0);
 	}
 }
