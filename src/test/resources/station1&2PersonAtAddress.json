@@ -1,0 +1,84 @@
+[{
+        "station": "1",
+        "address": "644 Gershwin Cir",
+        "personAtAddress": [{
+                "firstName": "Peter",
+                "lastName": "Duncan",
+                "address": "644 Gershwin Cir",
+                "age": 0,
+                "phone": "841-874-6512",
+                "medications": [],
+                "allergies": []
+            }
+        ]
+    }, {
+        "station": "1",
+        "address": "908 73rd St",
+        "personAtAddress": [{
+                "firstName": "Jamie",
+                "lastName": "Peters",
+                "address": "908 73rd St",
+                "age": 40,
+                "phone": "841-874-7462",
+                "medications": [
+                    "thradox:700mg"
+                ],
+                "allergies": [
+                    "illisoxian"
+                ]
+            }
+        ]
+    }, {
+        "station": "1",
+        "address": "947 E. Rose Dr",
+        "personAtAddress": [{
+                "firstName": "Kendrik",
+                "lastName": "Stelzer",
+                "address": "947 E. Rose Dr",
+                "age": 39,
+                "phone": "841-874-7784",
+                "medications": [],
+                "allergies": []
+            }
+        ]
+    }, {
+        "station": "2",
+        "address": "29 15th St",
+        "personAtAddress": [{
+                "firstName": "Jonanathan",
+                "lastName": "Marrack",
+                "address": "29 15th St",
+                "age": 0,
+                "phone": "841-874-6513",
+                "medications": [],
+                "allergies": []
+            }
+        ]
+    }, {
+        "station": "2",
+        "address": "892 Downing Ct",
+        "personAtAddress": [{
+                "firstName": "Zach",
+                "lastName": "Zemicks",
+                "address": "892 Downing Ct",
+                "age": 35,
+                "phone": "841-874-7512",
+                "medications": [],
+                "allergies": []
+            }
+        ]
+    }, {
+        "station": "2",
+        "address": "951 LoneTree Rd",
+        "personAtAddress": [{
+                "firstName": "Eric",
+                "lastName": "Cadigan",
+                "address": "951 LoneTree Rd",
+                "age": 0,
+                "phone": "841-874-7458",
+                "medications": [],
+                "allergies": []
+            }
+        ]
+    }
+]

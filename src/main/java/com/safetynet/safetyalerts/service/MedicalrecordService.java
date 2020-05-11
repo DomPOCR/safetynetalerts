@@ -11,6 +11,7 @@ import com.safetynet.safetyalerts.dao.MedicalrecordDao;
 import com.safetynet.safetyalerts.dao.PersonDao;
 import com.safetynet.safetyalerts.exceptions.DataAlreadyExistException;
 import com.safetynet.safetyalerts.exceptions.DataNotFoundException;
+import com.safetynet.safetyalerts.exceptions.InvalidArgumentException;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.model.Person;
 
@@ -57,8 +58,9 @@ public class MedicalrecordService {
 		// Vérification que la personne existe dans la DAO
 		if (!medicalrecorddao.updateMedicalrecord(medicalrecord)) {
 
-			throw new DataNotFoundException("La personne " + medicalrecord.getLastName()
-					+ " " + medicalrecord.getFirstName() + " n'existe pas !!");
+			throw new DataNotFoundException("La personne "
+					+ medicalrecord.getLastName() + " "
+					+ medicalrecord.getFirstName() + " n'existe pas !!");
 		}
 	}
 
@@ -67,9 +69,10 @@ public class MedicalrecordService {
 
 		// Vérification que le dossier médical existe dans la DAO (nom + prénom)
 		if (!medicalrecorddao.deleteMedicalrecord(medicalrecord)) {
-			throw new DataNotFoundException("La personne " + medicalrecord.getLastName()
-					+ " " + medicalrecord.getFirstName()
-					+ " n'a pas de dossier médical !!");
+			throw new DataNotFoundException(
+					"La personne " + medicalrecord.getLastName() + " "
+							+ medicalrecord.getFirstName()
+							+ " n'a pas de dossier médical !!");
 
 		}
 	}
@@ -93,6 +96,11 @@ public class MedicalrecordService {
 		List<Medicalrecord> listMedicalrecord = medicalrecorddao
 				.listMedicalrecord();
 		List<String> listMedicalrecordInfo = new ArrayList<String>();
+
+		if (lastname.isEmpty()) {
+
+			throw new InvalidArgumentException("Le nom ne peut être vide !!");
+		}
 
 		for (Medicalrecord Medicalrecord : listMedicalrecord) {
 			listMedicalrecordInfo.add(

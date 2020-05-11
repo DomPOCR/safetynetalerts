@@ -19,7 +19,6 @@ import com.safetynet.safetyalerts.dto.FireStationCoveragePerson;
 import com.safetynet.safetyalerts.dto.FireStationListPerson;
 import com.safetynet.safetyalerts.dto.FireStationListPhone;
 import com.safetynet.safetyalerts.dto.FireStationPersonAtAddress;
-import com.safetynet.safetyalerts.exceptions.InvalidArgumentException;
 import com.safetynet.safetyalerts.model.Firestation;
 import com.safetynet.safetyalerts.service.FirestationService;
 
@@ -34,36 +33,11 @@ public class FirestationController {
 	@Autowired
 	private FirestationService fireStationService;
 
-	// Vérification des données en entrée (Création)
-	public void checkInputFirestation(Firestation firestation) {
-
-		if (("".equals(firestation.getStation())
-				|| firestation.getStation() == null)
-				|| ("".equals(firestation.getAddress())
-						|| firestation.getAddress() == null)) {
-			throw new InvalidArgumentException(
-					"Le numéro OU l'adresse de la station sont obligatoires !!");
-		}
-	}
-
-	// Vérification des données en entrée (Suppression)
-	public void checkInputFirestationDelete(Firestation firestation) {
-
-		if (("".equals(firestation.getStation())
-				|| firestation.getStation() == null)
-				&& ("".equals(firestation.getAddress())
-						|| firestation.getAddress() == null)) {
-			throw new InvalidArgumentException(
-					"Le numéro OU l'adresse de la station sont obligatoires !!");
-		}
-	}
-
 	// Création Firestation
 	@PostMapping(path = "firestation")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createFirestation(@RequestBody @Valid Firestation firestation) {
 
-		// checkInputFirestation(firestation);
 		fireStationService.createFirestation(firestation);
 	}
 
@@ -72,7 +46,6 @@ public class FirestationController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void updateFirestation(@RequestBody @Valid Firestation firestation) {
 
-		// checkInputFirestation(firestation);
 		fireStationService.updateFirestation(firestation);
 	}
 	// Suppression FireStation
@@ -80,7 +53,6 @@ public class FirestationController {
 	@ResponseStatus(HttpStatus.RESET_CONTENT)
 	public void deleteFirestation(@RequestBody @Valid Firestation firestation) {
 
-		// checkInputFirestationDelete(firestation);
 		fireStationService.deleteFirestation(firestation);
 	}
 

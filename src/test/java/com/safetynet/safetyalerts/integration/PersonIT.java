@@ -18,7 +18,7 @@ import com.safetynet.safetyalerts.repositories.DataRepository;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class PersonIT {
 
-	// on utilise cette objet pour envoyer des requetes a notre serveur Spring
+	// on utilise cet objet pour envoyer des requetes a notre serveur Spring
 	// Boot
 	@Autowired
 	TestRestTemplate clientRest;
@@ -41,12 +41,12 @@ public class PersonIT {
 		// + on vérifie que le statut de la réponse est 200
 		ResponseEntity<String> response = clientRest
 				.getForEntity("/communityEmail?city=Culver", String.class);
-		// on check le code retour 200
+		// on vérifie le code retour 200
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 		// renvoie un jsonnode qu'on attend
-		JsonNode expectedJson = objectMapper.readTree(
-				ClassLoader.getSystemResourceAsStream("culverMail.json"));
-		// on check le contenu
+		JsonNode expectedJson = objectMapper.readTree(ClassLoader
+				.getSystemResourceAsStream("culvercommunityEmail.json"));
+		// on vérifie le contenu
 		assertEquals(expectedJson, objectMapper.readTree(response.getBody()));
 	}
 
@@ -56,7 +56,7 @@ public class PersonIT {
 		// On envoie une requête GET sans paramètre
 		ResponseEntity<String> response = clientRest
 				.getForEntity("/communityEmail?city=", String.class);
-		// on check le code retour 400
+		// on vérifie le code retour 400
 		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
 		// renvoie un jsonnode qu'on attend
 
@@ -71,10 +71,11 @@ public class PersonIT {
 		ResponseEntity<String> response = clientRest
 				.getForEntity("/personInfo?lastname=Boyd", String.class);
 
+		// on vérifie le code retour 200
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 
-		JsonNode expectedJson = objectMapper
-				.readTree(ClassLoader.getSystemResourceAsStream("boyd.json"));
+		JsonNode expectedJson = objectMapper.readTree(
+				ClassLoader.getSystemResourceAsStream("personInfoBoyd.json"));
 		JsonNode json = objectMapper.readTree(response.getBody());
 
 		assertEquals(expectedJson, json);
@@ -103,8 +104,8 @@ public class PersonIT {
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 
-		JsonNode expectedJson = objectMapper.readTree(
-				ClassLoader.getSystemResourceAsStream("1509CulverSt.json"));
+		JsonNode expectedJson = objectMapper.readTree(ClassLoader
+				.getSystemResourceAsStream("childAlert1509CulverSt.json"));
 
 		JsonNode json = objectMapper.readTree(response.getBody());
 

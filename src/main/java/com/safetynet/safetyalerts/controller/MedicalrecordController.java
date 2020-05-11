@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.safetynet.safetyalerts.exceptions.InvalidArgumentException;
 import com.safetynet.safetyalerts.model.Medicalrecord;
 import com.safetynet.safetyalerts.service.MedicalrecordService;
 
@@ -29,25 +29,12 @@ public class MedicalrecordController {
 	@Autowired
 	private MedicalrecordService medicalrecordService;
 
-	// Vérification des données en entrée
-	public void checkInputMedicalrecord(Medicalrecord medicalrecord) {
-
-		if ("".equals(medicalrecord.getFirstName())
-				|| medicalrecord.getFirstName() == null
-				|| "".equals(medicalrecord.getLastName())
-				|| medicalrecord.getLastName() == null) {
-			throw new InvalidArgumentException(
-					"Le nom ET le prénom sont obligatoires !!");
-		}
-	}
-
 	// Création Dossier médical
 	@PostMapping(path = "medicalRecord")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createMedicalRecord(
 			@RequestBody @Valid Medicalrecord medicalrecord) {
 
-		// checkInputMedicalrecord(medicalrecord);
 		medicalrecordService.createMedicalrecord(medicalrecord);
 	}
 
@@ -57,7 +44,6 @@ public class MedicalrecordController {
 	public void updateMedicalRecord(
 			@RequestBody @Valid Medicalrecord medicalrecord) {
 
-		// checkInputMedicalrecord(medicalrecord);
 		medicalrecordService.updateMedicalrecord(medicalrecord);
 	}
 
@@ -68,7 +54,6 @@ public class MedicalrecordController {
 	public void deleteMedicalRecord(
 			@RequestBody @Valid Medicalrecord medicalrecord) {
 
-		// checkInputMedicalrecord(medicalrecord);
 		medicalrecordService.deleteMedicalrecord(medicalrecord);
 	}
 
@@ -79,6 +64,19 @@ public class MedicalrecordController {
 		List<String> medicalrecord = medicalrecordService.getMedicalrecord();
 
 		return medicalrecord;
+
+	}
+
+	@GetMapping(path = "medicalRecordInfo")
+	@ResponseStatus(HttpStatus.OK)
+	public List<String> getMedicalrecordInfo(
+			@RequestParam @Valid String lastname,
+			@RequestParam(required = false) String firstname) {
+
+		List<String> medicalrecordInfo = medicalrecordService
+				.getMedicalrecordInfo(lastname, firstname);
+
+		return medicalrecordInfo;
 
 	}
 }
