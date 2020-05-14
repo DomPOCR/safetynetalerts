@@ -37,18 +37,21 @@ public class MedicalrecordService {
 				&& (personInfo != null) && (!personInfo.isEmpty())) {
 			medicalrecorddao.createMedicalrecord(medicalrecord);
 			return true;
+		} else {
+			if (medicalrecorddao.listMedicalrecord().contains(medicalrecord)) {
+				mess = "Le dossier médical de " + medicalrecord.getFirstName()
+						+ " " + medicalrecord.getLastName()
+						+ " existe déjà !! ";
+				throw new DataAlreadyExistException(mess);
+			}
+			if ((personInfo == null) || (personInfo.isEmpty())) {
+				mess = "La personne " + medicalrecord.getFirstName() + " "
+						+ medicalrecord.getLastName() + " n'existe pas !!";
+				throw new DataNotFoundException(mess);
+			}
+			return false;
 		}
-		if (medicalrecorddao.listMedicalrecord().contains(medicalrecord)) {
-			mess = "Le dossier médical de " + medicalrecord.getFirstName() + " "
-					+ medicalrecord.getLastName() + " existe déjà !! ";
-			throw new DataAlreadyExistException(mess);
-		}
-		if ((personInfo == null) || (personInfo.isEmpty())) {
-			mess = "La personne " + medicalrecord.getFirstName() + " "
-					+ medicalrecord.getLastName() + " n'existe pas !!";
-			throw new DataNotFoundException(mess);
-		}
-		return false;
+
 	}
 
 	// MAJ dossier médical (à partir du nom / prénom)

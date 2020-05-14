@@ -1,0 +1,12 @@
+{
+	"firstName": "John",
+	"lastName": "Boyd",
+	"birthdate": "01/01/1980",
+	"medications": [
+		"bière:350mg",
+		"vin:100mg"
+	],
+	"allergies": [
+		"eau"
+	]
+}

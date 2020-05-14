@@ -97,11 +97,10 @@ class MedicalrecordControlleurTest {
 		// WHEN
 		// THEN
 
-		mockmvc.perform(MockMvcRequestBuilders.post("/Medicalrecord")
+		mockmvc.perform(MockMvcRequestBuilders.post("/medicalRecord")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonMedicalrecord.toString()))
-				// .andExpect(MockMvcResultMatchers.status().isConflict());
-				.andExpect(MockMvcResultMatchers.status().isNotFound());
+				.andExpect(MockMvcResultMatchers.status().isConflict());
 	}
 
 	// --------------- MAJ DE DOSSIERS MEDICAUX -----------------
@@ -121,12 +120,10 @@ class MedicalrecordControlleurTest {
 		// WHEN
 		// THEN
 
-		mockmvc.perform(MockMvcRequestBuilders.put("/Medicalrecord")
+		mockmvc.perform(MockMvcRequestBuilders.put("/medicalRecord")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonMedicalrecord.toString()))
-				// DPANO
-				// .andExpect(MockMvcResultMatchers.status().isNoContent());
-				.andExpect(MockMvcResultMatchers.status().isNotFound());
+				.andExpect(MockMvcResultMatchers.status().isNoContent());
 	}
 
 	@Test
