@@ -1,4 +1,4 @@
-package com.safetynet.safetyalerts.controller;
+package com.safetynet.safetyalerts.UT_controller;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,7 +24,7 @@ import com.safetynet.safetyalerts.service.MedicalrecordService;
 @SpringBootTest
 
 @AutoConfigureMockMvc
-class MedicalrecordTest {
+class MedicalrecordControlleurTest {
 
 	@Autowired
 	MockMvc mockmvc;

@@ -1,4 +1,4 @@
-package com.safetynet.safetyalerts.controller;
+package com.safetynet.safetyalerts.UT_controller;
 
 import java.util.Arrays;
 
@@ -330,8 +330,8 @@ public class PersonControllerTest {
 		// Etape 2 : on vérifie que le service a bien été appelé avec les bons
 		// paramètres
 
-		// Mockito.verify(personService, Mockito.times(1)).getPersonInfo("Boyd",
-		// "John");
+		Mockito.verify(personService, Mockito.times(1)).getPersonInfo("Boyd",
+				null);
 
 	}
 

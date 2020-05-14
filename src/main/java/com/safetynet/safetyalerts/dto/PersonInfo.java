@@ -14,6 +14,24 @@ public class PersonInfo {
 	private List<String> medications = new ArrayList<>();
 	private List<String> allergies = new ArrayList<>();
 
+	public PersonInfo() {
+		super();
+	}
+
+	public PersonInfo(String firstName, String lastName, String address,
+			int age, String phone, String email, List<String> medications,
+			List<String> allergies) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.age = age;
+		this.phone = phone;
+		this.email = email;
+		this.medications = medications;
+		this.allergies = allergies;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

@@ -1,4 +1,4 @@
-package com.safetynet.safetyalerts.controller;
+package com.safetynet.safetyalerts.UT_controller;
 
 import java.util.Arrays;
 import java.util.List;

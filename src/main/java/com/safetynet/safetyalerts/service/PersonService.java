@@ -44,23 +44,24 @@ public class PersonService {
 	}
 
 	// MAJ personne (= suppression et création)
-	public void updatePerson(Person person) {
+	public boolean updatePerson(Person person) {
 
 		// Vérification que la personne existe dans la DAO (nom + prénom)
 		if (!persondao.updatePerson(person)) {
 			throw new DataNotFoundException(
 					"La personne " + person.toString() + " n'existe pas !!");
 		}
-
+		return true;
 	}
 
 	// Suppression d'une personne
-	public void deletePerson(Person person) {
+	public boolean deletePerson(Person person) {
 		// Vérification que la personne existe dans la DAO (nom + prénom)
 		if (!persondao.deletePerson(person)) {
 			throw new DataNotFoundException(
 					"La personne " + person.toString() + " n'existe pas !!");
 		}
+		return true;
 	}
 
 	// http://localhost:8080/person

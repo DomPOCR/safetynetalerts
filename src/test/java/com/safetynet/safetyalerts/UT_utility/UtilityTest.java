@@ -1,4 +1,4 @@
-package com.safetynet.safetyalerts.utility;
+package com.safetynet.safetyalerts.UT_utility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -9,6 +9,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+
+import com.safetynet.safetyalerts.utility.CalculateAge;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

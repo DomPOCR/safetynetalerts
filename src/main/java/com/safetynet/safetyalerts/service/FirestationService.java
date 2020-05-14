@@ -37,11 +37,12 @@ public class FirestationService {
 	MedicalrecordDao medicalrecorddao;
 
 	// Création station
-	public void createFirestation(Firestation firestation) {
+	public boolean createFirestation(Firestation firestation) {
 
 		// Vérification que la station n'existe pas dans la DAO
 		if (!firestationdao.listFirestation().contains(firestation)) {
 			firestationdao.createFirestation(firestation);
+			return true;
 		} else {
 			throw new DataAlreadyExistException(
 					"La station " + firestation.toString() + " existe déjà !!");
@@ -49,7 +50,7 @@ public class FirestationService {
 	}
 
 	// MAJ numéro station à partir d'une adresse (= suppression et création)
-	public void updateFirestation(Firestation firestation) {
+	public boolean updateFirestation(Firestation firestation) {
 
 		// Vérification que la station existe dans la DAO
 		if (!firestationdao.updateFirestation(firestation)) {
@@ -57,15 +58,18 @@ public class FirestationService {
 			throw new DataNotFoundException("La station "
 					+ firestation.toString() + " n'existe pas !!");
 		}
+		return true;
 	}
+
 	// Suppression station
-	public void deleteFirestation(Firestation firestation) {
+	public boolean deleteFirestation(Firestation firestation) {
 
 		// Vérification que la station existe dans la DAO
 		if (!firestationdao.deleteFirestation(firestation)) {
 			throw new DataNotFoundException("La station "
 					+ firestation.toString() + " n'existe pas !!");
 		}
+		return true;
 	}
 	public List<String> getFirestation() {
 
@@ -127,6 +131,7 @@ public class FirestationService {
 
 			if (firestation != null) {
 				fireStationInfo.setStation(firestation.getStation());
+
 			}
 			fireStationListPerson.add(fireStationInfo);
 		}
@@ -172,8 +177,10 @@ public class FirestationService {
 			}
 			fireStationInfo.setStation(station);
 			fireStationInfo.setResidentsPhone(listPhone);
+
 		}
-		fireStationListPhone.add(fireStationInfo);
+		if (fireStationInfo.getStation() != null)
+			fireStationListPhone.add(fireStationInfo);
 		return fireStationListPhone;
 	}
 
@@ -245,7 +252,8 @@ public class FirestationService {
 				fireStationInfo.getPersonListForFirestation().add(personInfo);
 			}
 		}
-		fireStationCoveragePerson.add(fireStationInfo);
+		if (fireStationInfo.getStation() != null)
+			fireStationCoveragePerson.add(fireStationInfo);
 		return fireStationCoveragePerson;
 	}
 
