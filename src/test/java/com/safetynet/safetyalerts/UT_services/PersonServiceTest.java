@@ -61,9 +61,9 @@ public class PersonServiceTest {
 	List<String> allergies = new ArrayList<String>(
 			Arrays.asList("e", "f", "g", "h"));
 
-	Medicalrecord MedicalrecordBoyd = new Medicalrecord("Roger", "Boyd",
+	Medicalrecord MedicalrecordBoyd = new Medicalrecord("John", "Boyd",
 			"03/06/1984", medications, allergies);
-	Medicalrecord MedicalrecordChild = new Medicalrecord("John", "Boyd",
+	Medicalrecord MedicalrecordChild = new Medicalrecord("Roger", "Boyd",
 			"09/06/2017", medications, allergies);
 	Medicalrecord MedicalrecordUnknown = new Medicalrecord("Jack", "Bauer",
 			"03/01/1984", medications, allergies);
@@ -81,9 +81,9 @@ public class PersonServiceTest {
 	@Test
 	public void createExistingPersonTest() throws Exception {
 
-		// GIVEN
-
 		List<Person> listPerson = new ArrayList<Person>();
+
+		// GIVEN
 		listPerson.add(personBoyd);
 
 		// WHEN
@@ -102,8 +102,9 @@ public class PersonServiceTest {
 	@Test
 	public void createNonExistingPersonTest() throws Exception {
 
-		// GIVEN
 		List<Person> listPerson = new ArrayList<Person>();
+
+		// GIVEN
 
 		// WHEN
 		// On retourne une liste vide
@@ -279,7 +280,7 @@ public class PersonServiceTest {
 	}
 
 	@Test
-	public void getInvalidPersonInfoTest() throws Exception {
+	public void getUnknownPersonInfoTest() throws Exception {
 
 		// GIVEN
 		// Liste vide

@@ -24,7 +24,7 @@ public class MedicalrecordService {
 	PersonDao persondao;
 
 	// Création dossier médical
-	public void createMedicalrecord(Medicalrecord medicalrecord) {
+	public boolean createMedicalrecord(Medicalrecord medicalrecord) {
 
 		// Vérification que la personne existe dans la DAO (nom + prénom)
 		// Et quelle n'a pas de dossier médical
@@ -36,24 +36,23 @@ public class MedicalrecordService {
 		if ((!medicalrecorddao.listMedicalrecord().contains(medicalrecord))
 				&& (personInfo != null) && (!personInfo.isEmpty())) {
 			medicalrecorddao.createMedicalrecord(medicalrecord);
-
-		} else {
-			if (medicalrecorddao.listMedicalrecord().contains(medicalrecord)) {
-				mess = "Le dossier médical de " + medicalrecord.getFirstName()
-						+ " " + medicalrecord.getLastName()
-						+ " existe déjà !! ";
-			}
-			if ((personInfo == null) || (personInfo.isEmpty())) {
-				mess = "La personne " + medicalrecord.getFirstName() + " "
-						+ medicalrecord.getLastName() + " n'existe pas !!";
-			}
+			return true;
+		}
+		if (medicalrecorddao.listMedicalrecord().contains(medicalrecord)) {
+			mess = "Le dossier médical de " + medicalrecord.getFirstName() + " "
+					+ medicalrecord.getLastName() + " existe déjà !! ";
 			throw new DataAlreadyExistException(mess);
 		}
-
+		if ((personInfo == null) || (personInfo.isEmpty())) {
+			mess = "La personne " + medicalrecord.getFirstName() + " "
+					+ medicalrecord.getLastName() + " n'existe pas !!";
+			throw new DataNotFoundException(mess);
+		}
+		return false;
 	}
 
 	// MAJ dossier médical (à partir du nom / prénom)
-	public void updateMedicalrecord(Medicalrecord medicalrecord) {
+	public boolean updateMedicalrecord(Medicalrecord medicalrecord) {
 
 		// Vérification que la personne existe dans la DAO
 		if (!medicalrecorddao.updateMedicalrecord(medicalrecord)) {
@@ -61,11 +60,12 @@ public class MedicalrecordService {
 			throw new DataNotFoundException("La personne "
 					+ medicalrecord.getLastName() + " "
 					+ medicalrecord.getFirstName() + " n'existe pas !!");
-		}
+		} else
+			return true;
 	}
 
 	// Suppression dossier médical (à partir du nom / prénom)
-	public void deleteMedicalrecord(Medicalrecord medicalrecord) {
+	public boolean deleteMedicalrecord(Medicalrecord medicalrecord) {
 
 		// Vérification que le dossier médical existe dans la DAO (nom + prénom)
 		if (!medicalrecorddao.deleteMedicalrecord(medicalrecord)) {
@@ -73,8 +73,8 @@ public class MedicalrecordService {
 					"La personne " + medicalrecord.getLastName() + " "
 							+ medicalrecord.getFirstName()
 							+ " n'a pas de dossier médical !!");
-
-		}
+		} else
+			return true;
 	}
 
 	public List<String> getMedicalrecord() {
