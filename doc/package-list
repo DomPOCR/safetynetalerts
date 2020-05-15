@@ -1,2 +1,6 @@
 com.safetynet.safetyalerts.controller
+com.safetynet.safetyalerts.dao
+com.safetynet.safetyalerts.dto
+com.safetynet.safetyalerts.model
 com.safetynet.safetyalerts.service
+com.safetynet.safetyalerts.utility
