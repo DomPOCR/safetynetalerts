@@ -1,12 +1,12 @@
 {
-	"firstName": "John",
-	"lastName": "Boyd",
+	"firstName": "Dom",
+	"lastName": "P",
 	"birthdate": "01/01/1980",
 	"medications": [
 		"aspirine:350mg",
 		"paracetamol:100mg"
 	],
 	"allergies": [
-		"froid"
+		"peanut"
 	]
 }

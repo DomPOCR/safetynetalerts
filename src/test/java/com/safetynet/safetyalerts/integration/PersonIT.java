@@ -77,9 +77,9 @@ public class PersonIT {
 	void updatePerson() throws Exception {
 
 		// On lit le body du json
-		JsonNode unePerson = objectMapper.readTree(ClassLoader
+		JsonNode updatePerson = objectMapper.readTree(ClassLoader
 				.getSystemResourceAsStream("updateInfoJohnBoyd.json"));
-		HttpEntity<JsonNode> objEntity = new HttpEntity<JsonNode>(unePerson);
+		HttpEntity<JsonNode> objEntity = new HttpEntity<JsonNode>(updatePerson);
 
 		// PUT
 		ResponseEntity<String> response = clientRest.exchange("/person",
@@ -92,7 +92,7 @@ public class PersonIT {
 		assertEquals(1, listPerson.size());
 
 		String json = objectMapper.writeValueAsString(listPerson.get(0));
-		assertEquals(unePerson, objectMapper.readTree(json));
+		assertEquals(updatePerson, objectMapper.readTree(json));
 
 	}
 
@@ -104,7 +104,7 @@ public class PersonIT {
 		objectNode.set("firstName", TextNode.valueOf("Jacob"));
 		objectNode.set("lastName", TextNode.valueOf("Boyd"));
 
-		// on execute le delete avec la person
+		// DELETE
 		HttpEntity<ObjectNode> objEntity = new HttpEntity<ObjectNode>(
 				objectNode);
 		ResponseEntity<String> response = clientRest.exchange("/person",

@@ -89,6 +89,7 @@ public class FirestationIT {
 		Firestation firestation = firestationDao
 				.fireStationAtAddress("1509 Culver St");
 
+		// on vérifie le contenu
 		assertNotNull(firestation);
 
 		String json = objectMapper.writeValueAsString(firestation);
@@ -134,6 +135,7 @@ public class FirestationIT {
 		// renvoie un jsonnode qu'on attend
 		JsonNode expectedJson = objectMapper.readTree(ClassLoader
 				.getSystemResourceAsStream("station1ListPerson.json"));
+
 		// on vérifie le contenu
 		assertEquals(expectedJson, objectMapper.readTree(response.getBody()));
 	}
