@@ -13,9 +13,6 @@ public abstract class CalculateAge {
 		LocalDate bDate = LocalDate.parse(birthdate, formatter);
 		LocalDate toDay = LocalDate.now();
 
-		// age = Period.between(LocalDate.parse(birthdate, formatter),
-		// toDay).getYears();
-
 		return Period.between(bDate, toDay).getYears();
 
 	}
