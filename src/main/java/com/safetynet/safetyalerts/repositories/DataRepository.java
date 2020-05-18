@@ -26,7 +26,7 @@ public class DataRepository {
 			.getLogger(DataRepository.class);
 
 	// Fichier JSON en mémoire
-	private static Database db;
+	private Database db;
 	private String jsonFile = "data.json";
 
 	// Commit uniquement dans le main et pas dans les tests pour ne pas modifier
@@ -35,7 +35,7 @@ public class DataRepository {
 
 	public Database getDatabase() {
 
-		return DataRepository.db;
+		return this.db;
 	}
 
 	public DataRepository() throws DataRepositoryException {
